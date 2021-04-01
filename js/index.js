@@ -1,4 +1,4 @@
-const template = document.createElement('template');
+const template = document.createElement("template");
 
 template.innerHTML = `
     <style>
@@ -6,13 +6,22 @@ template.innerHTML = `
         box-sizing: border-box;
       }
       .input-control: {
-        --bg-color:
+        --bg-color: black;
       }
       .input-control {
         display: flex;
-        align-items: center;
+        flex-direction: column;
+        align-items: flex-start;
         padding: 6px 9px;
         font-family: sans-serif;
+      }
+      .input-control div {
+        display: flex;
+        align-items: center;
+        margin-bottom: 12px;
+      }
+       .input-control label {
+        font-weight: bold;
       }
       .input-control input {
         min-height: 32px;
@@ -23,12 +32,12 @@ template.innerHTML = `
         height: 22px;
         width: 22px;
         border-radius: 50%;
-        background-color: #a5a2a2;
+        background-color: #abb6c3;
         margin-left: 12px;
         text-align: center;
         line-height: 22px;
         vertical-align: middle;
-        color: white;
+        color: #192029;
         font-weight: bold;
         font-size: 85%;
         user-select: none;
@@ -51,19 +60,26 @@ template.innerHTML = `
         opacity: 1;
       }
     </style>
+
+    
     <div class="input-control">
-      <input type="text" />
-      <span class="tooltip-icon">&#63;</span>
-      <div class="tooltip-container">
-        <span class="tooltip-content"></span>
+      <div>
+        <label></label>
+        <span class="tooltip-icon">&#63;</span>
+        <div class="tooltip-container">
+          <span class="tooltip-content"></span>
+        </div>
       </div>
+      <input type="text" />
     </div>
     `;
+
+//
 
 class BotManagerTextInput extends HTMLElement {
   constructor() {
     super();
-    this.attachShadow({ mode: 'open' });
+    this.attachShadow({ mode: "open" });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
   }
 
@@ -75,36 +91,42 @@ class BotManagerTextInput extends HTMLElement {
   }
 
   _getInputElement() {
-    return this.shadowRoot.querySelector('.input-control').firstElementChild;
+    return this.shadowRoot.querySelector(".input-control").lastElementChild;
+  }
+
+  _getLabelElement() {
+    return this.shadowRoot.querySelector("label");
   }
 
   _getTooltipElements() {
     return {
-      icon: this.shadowRoot.querySelector('.tooltip-icon'),
-      container: this.shadowRoot.querySelector('.tooltip-container'),
+      icon: this.shadowRoot.querySelector(".tooltip-icon"),
+      container: this.shadowRoot.querySelector(".tooltip-container"),
     };
   }
 
   _setTooltip(data) {
     const tooltip = this._getTooltipElements();
-    if (typeof data === 'string' && data) {
+    if (typeof data === "string" && data) {
       tooltip.container.firstElementChild.textContent = data;
       return tooltip;
     }
-    tooltip.icon.style.display = 'none';
-    tooltip.container.style.display = 'none';
+    tooltip.icon.style.display = "none";
+    tooltip.container.style.display = "none";
   }
 
   connectedCallback() {
     const attributes = this.attributes;
-    const name = attributes.name.value;
-    const tooltip = attributes.tooltip ? attributes.tooltip.value : '';
-    this._getInputElement().setAttribute('name', name);
+    const label = attributes.label ? attributes.label.value : "";
+    const name = attributes.name ? attributes.name.value : "";
+    const tooltip = attributes.tooltip ? attributes.tooltip.value : "";
+    const labelElem = this._getLabelElement();
+
+    labelElem.textContent = label;
+    labelElem.setAttribute("for", name);
+    this._getInputElement().setAttribute("name", name);
     this._setTooltip(tooltip);
-    if (tooltip) {
-    }
-    this._getTooltipElements().container.firstElementChild.textContent = tooltip;
   }
 }
 
-window.customElements.define('botmanager-text-input', BotManagerTextInput);
+window.customElements.define("botmanager-text-input", BotManagerTextInput);
