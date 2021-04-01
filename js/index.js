@@ -5,6 +5,9 @@ template.innerHTML = `
       .input-control * {
         box-sizing: border-box;
       }
+      .input-control: {
+        --bg-color:
+      }
       .input-control {
         display: flex;
         align-items: center;
