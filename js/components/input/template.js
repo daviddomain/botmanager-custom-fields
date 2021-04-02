@@ -1,11 +1,17 @@
 const createTemplate = (props) => {
+  // Props
   const template = document.createElement("template");
+  const name = props.name.value;
+  const value = props.value.value;
+  const span = props.span ? `1 / span ${props.span.value}` : "initial";
+  const label = props.label ? props.label.value : "";
+  const tooltip = props.tooltip.value;
   const slider = props.slider ? props.slider.localName : "";
   const min = props.min ? props.min.value : "1";
   const max = props.max ? props.max.value : "100";
   const step = props.step ? props.step.value : "1";
-  const value = props.value ? props.value.value : "50";
   const type = props.type ? props.type.value : "text";
+  const trackVal = ((value - min) / (max - min)) * 100;
 
   // Colors
   const labelClr = props.labelClr ? props.labelClr.value : "#abb6c3";
@@ -22,6 +28,7 @@ const createTemplate = (props) => {
   const sldThumbClr = props.sldThumbClr ? props.sldThumbClr.value : "#ffffff";
   const uomClr = props.uomClr ? props.uomClr.value : "#757c85";
 
+  // Unit of measurement style
   const unitOfMesurement = props.uom
     ? `
     .input-control::after {
@@ -41,16 +48,31 @@ const createTemplate = (props) => {
     }
   `
     : "";
+
+  // Main Input
   const mainInput =
     type === "number"
-      ? `<input type="${type}" min="${min}" max="${max}" step="${step}" class="bot-input" />`
-      : `<input type="${type}" class="bot-input" />`;
+      ? `<input name="${name}" type="${type}" value="${value}" min="${min}" max="${max}" step="${step}" class="bot-input" />`
+      : `<input name="${name}" type="${type}" value="${value}" class="bot-input" />`;
+
+  // Slider
   const sliderElem = slider
     ? `
     <input type="range" min="${min}" max="${max}" step="${step}" value="${value}" class="slider" />
     `
     : "";
-  const trackVal = ((value - min) / (max - min)) * 100;
+
+  // Tooltip
+  const tooltipElements = tooltip
+    ? `
+    <span class="tooltip-icon">&#63;</span>
+    <div class="tooltip-container">
+      <span class="tooltip-content">${tooltip}</span>
+    </div>
+    `
+    : "";
+
+  // Template HTML
   template.innerHTML = `
     <style>
       input::-webkit-outer-spin-button,
@@ -210,11 +232,8 @@ const createTemplate = (props) => {
     </style>
     <div class="input-control">
       <div>
-        <label></label>
-        <span class="tooltip-icon">&#63;</span>
-        <div class="tooltip-container">
-          <span class="tooltip-content"></span>
-        </div>
+        <label for="${name}">${label}</label>
+        ${tooltipElements}
       </div>
       ${mainInput}
       ${sliderElem}
@@ -226,6 +245,7 @@ const createTemplate = (props) => {
     min,
     max,
     step,
+    span,
     value,
     type,
     sldValueClr,
@@ -233,147 +253,4 @@ const createTemplate = (props) => {
   };
 };
 
-export default class BotManagerInput extends HTMLElement {
-  static formAssociated = true;
-
-  constructor() {
-    super();
-    const attributes = this.attributes;
-    const templateAndProps = createTemplate(attributes);
-    if (!attributes.slot)
-      throw new Error(`Missing a slot attribute on a botmanager-input field.`);
-    if (!attributes.name)
-      throw new Error(`Missing a name attribute on a botmanager-input field.`);
-    if (!attributes.value)
-      throw new Error(`Missing a value attribute on a botmanager-input field.`);
-    if (
-      (attributes.slider && !attributes.type) ||
-      (attributes.slider && attributes.type.value === "text")
-    )
-      throw new Error(
-        `Slider will only work with input type="number". Please fix input ${attributes.name.value}.`
-      );
-    this.name = attributes.name.value;
-    this.type = templateAndProps.type;
-    this.slider = templateAndProps.slider;
-    this.min = templateAndProps.min;
-    this.max = templateAndProps.max;
-    this.step = templateAndProps.step;
-    this.sldValueClr = templateAndProps.sldValueClr;
-    this.sldTrackClr = templateAndProps.sldTrackClr;
-    this.attachShadow({ mode: "open" });
-    this.shadowRoot.appendChild(
-      templateAndProps.template.content.cloneNode(true)
-    );
-  }
-
-  get value() {
-    return this.getAttribute("value");
-  }
-
-  set value(newValue) {
-    this.setAttribute("value", newValue);
-  }
-
-  _setValue(value) {
-    this.shadowRoot.querySelector(
-      ".input-control input[type=range]"
-    ).value = value;
-
-    this.shadowRoot.querySelector(
-      `.input-control input[type=${this.type}]`
-    ).value = value;
-    this.value = value;
-  }
-
-  serializedData() {
-    return {
-      name: this._getInputElement().name,
-      value: this._getInputElement().value,
-    };
-  }
-
-  _getInputElement(isSlider) {
-    if (isSlider) {
-      return this.shadowRoot.querySelector(".input-control").lastElementChild
-        .previousElementSibling;
-    }
-    return this.shadowRoot.querySelector(".input-control").lastElementChild;
-  }
-
-  _getLabelElement() {
-    return this.shadowRoot.querySelector("label");
-  }
-
-  _getTooltipElements() {
-    return {
-      icon: this.shadowRoot.querySelector(".tooltip-icon"),
-      container: this.shadowRoot.querySelector(".tooltip-container"),
-    };
-  }
-
-  _setTooltip(data) {
-    const tooltip = this._getTooltipElements();
-    if (typeof data === "string" && data) {
-      tooltip.container.firstElementChild.textContent = data;
-      return tooltip;
-    }
-    tooltip.icon.style.display = "none";
-    tooltip.container.style.display = "none";
-  }
-
-  _serializeAttributes(attributes) {
-    return attributes.reduce((acc, curr) => {
-      acc[curr.localName] = curr.value;
-      return acc;
-    }, {});
-  }
-
-  _setSliderBgStyle = (value) => {
-    let trackVal = ((value - this.min) / (this.max - this.min)) * 100;
-    this._getInputElement(
-      !this.slider
-    ).style.background = `linear-gradient(to right, ${this.sldValueClr} 0%, ${this.sldValueClr} ${trackVal}%, ${this.sldTrackClr} ${trackVal}%, ${this.sldTrackClr} 100%)`;
-  };
-
-  _sliderInputHandler = (evt) => {
-    const value = evt.target.value;
-    this._setSliderBgStyle(value);
-    this._setValue(value);
-  };
-
-  _textInputHandler = (evt) => {
-    const value = evt.target.value;
-    if (this.slider) {
-      this._setSliderBgStyle(value);
-    }
-    this._setValue(value);
-  };
-
-  connectedCallback() {
-    const attributes = this._serializeAttributes(Array.from(this.attributes));
-    const slider = attributes.hasOwnProperty("slider");
-    const labelElem = this._getLabelElement();
-    labelElem.textContent = attributes.label;
-    labelElem.setAttribute("for", attributes.name);
-    this._getInputElement(slider).setAttribute("name", attributes.name);
-    this._getInputElement(slider).setAttribute("value", attributes.value || "");
-    this._setTooltip(attributes.tooltip);
-    this.style.gridColumn = attributes.span
-      ? `1 / span ${attributes.span}`
-      : "initial";
-
-    if (this.slider) {
-      this._getInputElement(!this.slider).addEventListener(
-        "input",
-        this._sliderInputHandler
-      );
-      this._getInputElement(this.slider).addEventListener(
-        "input",
-        this._textInputHandler
-      );
-    }
-  }
-
-  disconnectedCallback() {}
-}
+export default createTemplate;
