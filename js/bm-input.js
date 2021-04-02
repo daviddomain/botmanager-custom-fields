@@ -6,7 +6,6 @@ const createTemplate = (props) => {
   const step = props.step ? props.step.value : "1";
   const value = props.value ? props.value.value : "50";
   const type = props.type ? props.type.value : "text";
-
   const unitOfMesurement = props.uom
     ? `
     .input-control::after {
@@ -26,22 +25,26 @@ const createTemplate = (props) => {
     }
   `
     : "";
-
   const mainInput =
     type === "number"
-      ? `<input type="${type}" class="bot-input" />`
+      ? `<input type="${type}" min="${min}" max="${max}" step="${step}" class="bot-input" />`
       : `<input type="${type}" class="bot-input" />`;
-
   const sliderElem = slider
     ? `
     <input type="range" min="${min}" max="${max}" step="${step}" value="${value}" class="slider" />
     `
     : "";
-
   const trackVal = ((value - min) / (max - min)) * 100;
-
   template.innerHTML = `
     <style>
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      input[type=number] {
+        -moz-appearance: textfield;
+      }
       .input-control * {
         box-sizing: border-box;
       }
@@ -188,8 +191,6 @@ const createTemplate = (props) => {
         opacity: 1;
       }
     </style>
-
-    
     <div class="input-control">
       <div>
         <label></label>
@@ -213,26 +214,44 @@ const createTemplate = (props) => {
   };
 };
 
-export default class BotManagerTextInput extends HTMLElement {
+export default class BotManagerInput extends HTMLElement {
+  static formAssociated = true;
+
   constructor() {
     super();
     const attributes = this.attributes;
     const templateAndProps = createTemplate(attributes);
+    if (!attributes.slot)
+      throw new Error(`Missing a slot attribute on a botmanager-input field.`);
     if (!attributes.name)
+      throw new Error(`Missing a name attribute on a botmanager-input field.`);
+    if (!attributes.value)
+      throw new Error(`Missing a value attribute on a botmanager-input field.`);
+    if (
+      (attributes.slider && !attributes.type) ||
+      (attributes.slider && attributes.type.value === "text")
+    )
       throw new Error(
-        `Missing a name argument on a botmanager-text-input field.`
+        `Slider will only work with input type="number". Please fix input ${attributes.name.value}.`
       );
-
+    this.name = attributes.name.value;
+    this.type = templateAndProps.type;
     this.slider = templateAndProps.slider;
     this.min = templateAndProps.min;
     this.max = templateAndProps.max;
     this.step = templateAndProps.step;
-    this.type = templateAndProps.type;
-
     this.attachShadow({ mode: "open" });
     this.shadowRoot.appendChild(
       templateAndProps.template.content.cloneNode(true)
     );
+  }
+
+  get value() {
+    return this.getAttribute("value");
+  }
+
+  set value(newValue) {
+    this.setAttribute("value", newValue);
   }
 
   _setValue(value) {
@@ -243,6 +262,7 @@ export default class BotManagerTextInput extends HTMLElement {
     this.shadowRoot.querySelector(
       `.input-control input[type=${this.type}]`
     ).value = value;
+    this.value = value;
   }
 
   serializedData() {
@@ -336,4 +356,6 @@ export default class BotManagerTextInput extends HTMLElement {
       );
     }
   }
+
+  disconnectedCallback() {}
 }
