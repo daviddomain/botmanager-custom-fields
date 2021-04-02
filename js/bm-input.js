@@ -6,6 +6,22 @@ const createTemplate = (props) => {
   const step = props.step ? props.step.value : "1";
   const value = props.value ? props.value.value : "50";
   const type = props.type ? props.type.value : "text";
+
+  // Colors
+  const labelClr = props.labelClr ? props.labelClr.value : "#abb6c3";
+  const ttIconClr = props.ttIconClr ? props.ttIconClr.value : "#192029";
+  const ttIconBgClr = props.ttIconBgClr ? props.ttIconBgClr.value : "#abb6c3";
+  const ttBgClr = props.ttBgClr ? props.ttBgClr.value : "#656d78";
+  const ttClr = props.ttClr ? props.ttClr.value : "#e5e6e7";
+  const ttBrdClr = props.ttBrdClr ? props.ttBrdClr.value : "#6a7680";
+  const inpBgClr = props.inpBgClr ? props.inpBgClr.value : "#161a1e";
+  const inpClr = props.inpClr ? props.inpClr.value : "#e1eeff";
+  const inpBrdClr = props.inpBrdClr ? props.inpBrdClr.value : "#5c6671";
+  const sldValueClr = props.sldValueClr ? props.sldValueClr.value : "#82CFD0";
+  const sldTrackClr = props.sldTrackClr ? props.sldTrackClr.value : "#475260";
+  const sldThumbClr = props.sldThumbClr ? props.sldThumbClr.value : "#ffffff";
+  const uomClr = props.uomClr ? props.uomClr.value : "#757c85";
+
   const unitOfMesurement = props.uom
     ? `
     .input-control::after {
@@ -13,7 +29,7 @@ const createTemplate = (props) => {
         display: inline-block;
         height: 32px;
         width: 100px;
-        color: #757c85;
+        color: ${uomClr};
         position: absolute;
         bottom: ${props.slider ? "30px" : "-2px"};
         right: 0;
@@ -63,16 +79,16 @@ const createTemplate = (props) => {
        .input-control label {
          font-size: 80%;
         font-weight: bold;
-        color: #abb6c3;
+        color: ${labelClr};
       }
       .input-control .bot-input {
         min-height: 32px;
         width: 100%;
         padding: 0 12px;
-        background-color: #161a1e;
-        border: 1px solid #5c6671;
+        background-color: ${inpBgClr};
+        border: 1px solid ${inpBrdClr};
         border-radius: 6px;
-        color: #e1eeff;
+        color: ${inpClr};
       }
       .input-control .slider {
           -webkit-appearance: none;
@@ -81,7 +97,7 @@ const createTemplate = (props) => {
           width: 100%;
           min-height: 8.4px;
           height: 8.4px;
-          background: linear-gradient(to right, #82CFD0 0%, #82CFD0 ${trackVal}%, #475260 ${trackVal}%, #475260 100%);
+          background: linear-gradient(to right, ${sldValueClr} 0%, ${sldValueClr} ${trackVal}%, ${sldTrackClr} ${trackVal}%, ${sldTrackClr} 100%);
           transition: background 450ms ease-in;
           border: none;
           border-radius: 4.4px;
@@ -107,7 +123,7 @@ const createTemplate = (props) => {
         height: 16px;
         width: 16px;
         border-radius: 50%;
-        background-color: #ffffff;
+        background-color: ${sldThumbClr};
         cursor: pointer;
         margin-top: -3.4px;
       }
@@ -123,7 +139,7 @@ const createTemplate = (props) => {
         height: 16px;
         width: 16px;
         border-radius: 50%;
-        background-color: #ffffff;
+        background-color: ${sldThumbClr};
         cursor: pointer;
         box-shadow: none;
         border: none;
@@ -142,12 +158,12 @@ const createTemplate = (props) => {
         height: 18px;
         width: 18px;
         border-radius: 50%;
-        background-color: #abb6c3;
+        background-color: ${ttIconBgClr};
         margin-left: 12px;
         text-align: center;
         line-height: 18px;
         vertical-align: middle;
-        color: #192029;
+        color: ${ttIconClr};
         font-weight: bold;
         font-size: 72%;
         user-select: none;
@@ -165,14 +181,15 @@ const createTemplate = (props) => {
         padding: 12px 18px;
         font-weight: normal;
         font-size: 60%;
-        min-width: 200px;
-        background-color: #ecf2fa;
-        color: #32373d;
+        min-width: 250px;
+        max-width: 280px;
+        background-color: ${ttBgClr};
+        color: ${ttClr};
         border-radius: 4px;
-        top: 28px;
+        top: 26px;
         left: calc(50% - 100px);
         z-index: 2;
-        border: 1px solid #414549;
+        border: 1px solid ${ttBrdClr};
         transition: opacity 0.3s linear;
       }
       .tooltip-content::before {
@@ -183,9 +200,9 @@ const createTemplate = (props) => {
         height: 0px;
         border-style: solid;
         border-width: 0 8px 12px 8px;
-        border-color: transparent transparent #e1eeff transparent;
+        border-color: transparent transparent ${ttBgClr} transparent;
         top: -8px;
-        left: calc(50% - 17px);
+        left: calc(50% - 40px);
       }
       .tooltip-icon:hover + .tooltip-container .tooltip-content {
         opacity: 1;
@@ -211,6 +228,8 @@ const createTemplate = (props) => {
     step,
     value,
     type,
+    sldValueClr,
+    sldTrackClr,
   };
 };
 
@@ -240,6 +259,8 @@ export default class BotManagerInput extends HTMLElement {
     this.min = templateAndProps.min;
     this.max = templateAndProps.max;
     this.step = templateAndProps.step;
+    this.sldValueClr = templateAndProps.sldValueClr;
+    this.sldTrackClr = templateAndProps.sldTrackClr;
     this.attachShadow({ mode: "open" });
     this.shadowRoot.appendChild(
       templateAndProps.template.content.cloneNode(true)
@@ -310,12 +331,9 @@ export default class BotManagerInput extends HTMLElement {
 
   _setSliderBgStyle = (value) => {
     let trackVal = ((value - this.min) / (this.max - this.min)) * 100;
-    this._getInputElement(!this.slider).style.background =
-      "linear-gradient(to right, #82CFD0 0%, #82CFD0 " +
-      trackVal +
-      "%, #475260 " +
-      trackVal +
-      "%, #475260 100%)";
+    this._getInputElement(
+      !this.slider
+    ).style.background = `linear-gradient(to right, ${this.sldValueClr} 0%, ${this.sldValueClr} ${trackVal}%, ${this.sldTrackClr} ${trackVal}%, ${this.sldTrackClr} 100%)`;
   };
 
   _sliderInputHandler = (evt) => {
