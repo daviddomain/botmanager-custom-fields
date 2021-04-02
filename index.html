@@ -8,43 +8,167 @@
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
     <title>Document</title>
-    <script type="module" src="./js/index.js"></script>
+
     <style>
       body {
         padding: 0;
         margin: 0;
+        background-color: #161a1e;
       }
-      .tooltip-icon {
-        color: red;
+      .container {
+        width: 100%;
+        max-width: 1228px;
+        margin: 0 auto;
       }
       form {
-        background-color: #151c23;
+        background-color: #161a1e;
         color: #abb6c3;
         font-size: 100%;
         padding: 16px 32px;
-      }
-      fieldset {
-        background-color: #192029;
-        border-radius: 6px;
+        font-family: sans-serif;
       }
     </style>
   </head>
 
   <body>
-    <form>
-      <fieldset>
-        <legend>Fruit juice size</legend>
-        <botmanager-text-input
-          name="foo"
-          label="Minimum price to open deal"
-          tooltip="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
-        >
-        </botmanager-text-input>
-      </fieldset>
-
-      <!-- <button type="submit">send</button> -->
-    </form>
-
+    <div class="container">
+      <form>
+        <!--Form Fieldset-->
+        <botmanager-fieldset legend="Stop Loss" columns="2">
+          <botmanager-text-input
+            slot="fieldset-child"
+            name="stop-loss"
+            type="number"
+            value="0"
+            uom="%"
+            label="Stop Loss (%)"
+            tooltip="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt."
+          ></botmanager-text-input>
+          <botmanager-text-input
+            slot="fieldset-child"
+            name="stop-loss-action"
+            label="Stop Loss action"
+            tooltip="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt."
+          ></botmanager-text-input>
+        </botmanager-fieldset>
+        <!--Form Fieldset-->
+        <botmanager-fieldset legend="Safety orders" columns="2">
+          <botmanager-text-input
+            slot="fieldset-child"
+            name="max-trades-count"
+            type="number"
+            value="5"
+            slider
+            label="Max safety trades count"
+            tooltip="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt."
+          >
+          </botmanager-text-input>
+          <botmanager-text-input
+            slot="fieldset-child"
+            name="max-active-trades-count"
+            type="number"
+            value="0"
+            slider
+            min="-10"
+            max="10"
+            label="Max active safety trades count"
+            tooltip="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt."
+          >
+          </botmanager-text-input>
+          <botmanager-text-input
+            span="2"
+            slot="fieldset-child"
+            name="price-deviation-safety"
+            type="number"
+            value="1.4"
+            uom="%"
+            slider
+            min="0.0"
+            max="100.0"
+            step="0.1"
+            label="Price deviation to open safety orders (% from initial order)"
+            tooltip="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt."
+          >
+          </botmanager-text-input>
+          <botmanager-text-input
+            slot="fieldset-child"
+            name="safty-volume-scale"
+            type="number"
+            value="1.05"
+            slider
+            min="0"
+            max="10"
+            step="0.01"
+            label="Safety order volume scale"
+            tooltip="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt."
+          >
+          </botmanager-text-input>
+          <botmanager-text-input
+            slot="fieldset-child"
+            name="safty-step-scale"
+            type="number"
+            value="0.89"
+            slider
+            min="0"
+            max="10"
+            step="0.01"
+            label="Safety order step scale"
+            tooltip="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt."
+          >
+          </botmanager-text-input>
+        </botmanager-fieldset>
+        <!--Form Fieldset-->
+        <botmanager-fieldset legend="Advanced Settings" columns="2">
+          <botmanager-text-input
+            span="2"
+            slot="fieldset-child"
+            name="minimum-price"
+            type="number"
+            value="0"
+            uom="BTC"
+            label="Don't start deal(s) if the daily volume is less than"
+            tooltip="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt."
+          >
+          </botmanager-text-input>
+          <botmanager-text-input
+            slot="fieldset-child"
+            name="minimum-price"
+            label="Minimum price to open deal"
+            tooltip="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt."
+          >
+          </botmanager-text-input>
+          <botmanager-text-input
+            slot="fieldset-child"
+            name="maximum-price"
+            label="Maximum price to open deal"
+            tooltip="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt."
+          >
+          </botmanager-text-input>
+          <botmanager-text-input
+            slot="fieldset-child"
+            name="start-delay"
+            type="number"
+            value="0"
+            uom="Sec"
+            label="Deal start delay"
+            tooltip="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt."
+          >
+          </botmanager-text-input>
+          <botmanager-text-input
+            slot="fieldset-child"
+            name="cool-down"
+            type="number"
+            value="120"
+            uom="Sec"
+            label="Cooldown between deals"
+            tooltip="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt."
+          >
+          </botmanager-text-input>
+        </botmanager-fieldset>
+        <!-- <button type="submit">send</button> -->
+      </form>
+    </div>
+    <script type="module" src="./js/index.js"></script>
     <script>
       const form = document.querySelector("form");
       const onFormSubmit = (evt) => {
