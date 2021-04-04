@@ -1,6 +1,11 @@
 import createTemplate from "./template.js";
 
 export default class BotManagerSelect extends HTMLElement {
+  static formAssociated = true;
+
+  static get observedAttributes() {
+    return ["disabled"];
+  }
   constructor() {
     super();
     const attributes = this.attributes;
@@ -32,7 +37,17 @@ export default class BotManagerSelect extends HTMLElement {
     this.value = this.select.options[this.select.selectedIndex].value;
   };
 
-  connectedCallback() {}
+  attributeChangedCallback(attrName, oldVal, newVal) {
+    if (typeof newVal === "string") {
+      this.select.setAttribute(attrName, newVal);
+    } else {
+      this.select.removeAttribute(attrName);
+    }
+  }
+
+  connectedCallback() {
+    this.style.gridColumn = this.span;
+  }
 
   disconnectedCallback() {
     this.select.removeEventListener("change", this._onChangeSelect);

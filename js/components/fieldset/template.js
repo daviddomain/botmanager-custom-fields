@@ -1,8 +1,15 @@
+import BotManagerSwitch from "../switch/bm-switch.js";
+
 const createTemplate = (props) => {
   const template = document.createElement("template");
   const columns = props.columns ? props.columns.value : "1";
   const legend = props.legend ? props.legend.value : "";
   const collapsible = props.collapsible ? props.collapsible.localName : "";
+  const switchable = props.switchable ? props.switchable.specified : false;
+
+  const switchElement = switchable
+    ? `<botmanager-switch for="fieldset"></botmanager-switch>`
+    : "";
 
   const dismiss = collapsible
     ? `
@@ -26,10 +33,11 @@ const createTemplate = (props) => {
         color: #e1eeff;
         padding: 40px 6px 0;
         box-sizing: border-box;
-        transition: all 0.28s ease-out;
+        transition: max-height 0.28s ease-out;
       }
       fieldset * {
         box-sizing: border-box;
+        transition: max-height 0.28s ease-in;
       }
       fieldset.hide {
         max-height: 102px !important;
@@ -46,7 +54,7 @@ const createTemplate = (props) => {
         vertical-align: middle;
         position: absolute;
         right: 25px;
-        top: 11px;
+        top: -6px;
         font-size: 100%;
         cursor: pointer;
         z-index: 10;
@@ -65,19 +73,19 @@ const createTemplate = (props) => {
         flex-direction: column;
         align-items: stretch;
         justify-content: stretch;
-        padding: 16px 20px;
-        margin-top: 16px;
+        padding: 16px 20px 32px;
         border-top: 1px solid #5c6671;
-        transition: all 0.12s ease;
+        transition: all 0.44s ease-in;
       }
       fieldset.hide div {
         border-color: transparent;
         opacity: 0;
+        transition: all 0.12s ease-out;
       }
       legend {
         position: relative;
         transform: translateY(32px);
-        padding: 16px 20px 0;
+        padding: 16px 20px;
         width: auto;
         
       }
@@ -89,12 +97,13 @@ const createTemplate = (props) => {
             grid-template-rows: auto;
             column-gap: 20px;
             row-gap: 20px;
+            padding: 16px 20px;
           }
       }
     </style>
     <fieldset>
         ${dismiss}
-        <legend>${legend}</legend>
+        <legend>${legend} ${switchElement}</legend>
         <div>
             <slot name="fieldset-child"></slot>
         </div>
@@ -104,6 +113,7 @@ const createTemplate = (props) => {
   return {
     template,
     collapsible,
+    switchable,
   };
 };
 

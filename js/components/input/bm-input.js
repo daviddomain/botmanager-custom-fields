@@ -4,6 +4,10 @@ import errorHanlder from "./error-handler.js";
 export default class BotManagerInput extends HTMLElement {
   static formAssociated = true;
 
+  static get observedAttributes() {
+    return ["disabled"];
+  }
+
   constructor() {
     super();
     const attributes = this.attributes;
@@ -87,6 +91,16 @@ export default class BotManagerInput extends HTMLElement {
     }
     this._setValue(value);
   };
+
+  attributeChangedCallback(attrName, oldVal, newVal) {
+    if (typeof newVal === "string") {
+      this.mainInput.setAttribute(attrName, newVal);
+      this.slider && this.slider.setAttribute(attrName, newVal);
+    } else {
+      this.mainInput.removeAttribute(attrName);
+      this.slider && this.slider.removeAttribute(attrName);
+    }
+  }
 
   connectedCallback() {
     this.style.gridColumn = this.span;

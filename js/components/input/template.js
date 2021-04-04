@@ -5,6 +5,7 @@ const createTemplate = (props) => {
   const template = document.createElement("template");
   const name = props.name.value;
   const value = props.value.value;
+  const disabled = props.disabled ? "disabled" : "";
   const span = props.span ? `1 / span ${props.span.value}` : "initial";
   const label = props.label ? props.label.value : "";
   const tooltip = props.tooltip ? props.tooltip.value : "";
@@ -71,8 +72,8 @@ const createTemplate = (props) => {
   // Main Input
   const mainInput =
     type === "number"
-      ? `<input name="${name}" type="${type}" value="${value}" min="${min}" max="${max}" step="${step}" class="bot-input" />`
-      : `<input name="${name}" type="${type}" value="${value}" class="bot-input" />`;
+      ? `<input name="${name}" type="${type}" value="${value}" min="${min}" max="${max}" step="${step}" class="bot-input" ${disabled} />`
+      : `<input name="${name}" type="${type}" value="${value}" class="bot-input" ${disabled} />`;
 
   // Slider
   const sliderElem = slider
@@ -81,7 +82,7 @@ const createTemplate = (props) => {
       <output for="${name + "_slider"}" value="${value}"></output>
       <input type="range" name="${
         name + "_slider"
-      }" min="${min}" max="${max}" step="${step}" value="${value}" class="slider" />
+      }" min="${min}" max="${max}" step="${step}" value="${value}" class="slider" ${disabled} />
     </div>
     `
     : "";
@@ -132,6 +133,9 @@ const createTemplate = (props) => {
         border: 1px solid ${inpBrdClr};
         border-radius: 6px;
         color: ${inpClr};
+      }
+      .input-control .bot-input:disabled {
+        opacity: 0.3;
       }
       .input-control .slider {
           -webkit-appearance: none;

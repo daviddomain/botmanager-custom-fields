@@ -1,9 +1,10 @@
 import tooltipStyles from "../tooltip/bm-tooltip-styles.js";
 
 const createTemplate = (props) => {
+  //Props
   const template = document.createElement("template");
-
   const name = props.name.value;
+  const disabled = props.disabled ? "disabled" : "";
   const span = props.span ? `1 / span ${props.span.value}` : "initial";
   const label = props.label ? props.label.value : "";
   const tooltip = props.tooltip ? props.tooltip.value : "";
@@ -25,7 +26,7 @@ const createTemplate = (props) => {
   const focusBrdClr = props.focusBrdClr ? props.focusBrdClr.value : "#6a6e73";
 
   const tooltipContentStyle = tooltip
-    ? tooltipStyles(ttBgClr, ttClr, ttBrdClr, ttBgClr)
+    ? tooltipStyles(ttBgClr, ttClr, ttBrdClr)
     : "";
 
   const botmanagerTooltip = tooltip
@@ -86,6 +87,10 @@ const createTemplate = (props) => {
         outline: none;
         box-shadow: inset 0 0 0 1px ${focusBrdClr}, 0 0 10px 2px rgba(255,255,255, 0.3);
       }
+      select:disabled {
+        opacity: 0.3;
+        cursor: initial;
+      }
       .custom-select {
         position: relative;
       }
@@ -109,7 +114,7 @@ const createTemplate = (props) => {
         ${botmanagerTooltip}
       </div>
       <div class="custom-select">
-        <select name="${name}">
+        <select name="${name}" ${disabled}>
           ${options}
         </select>
         <span class="custom-arrow">
