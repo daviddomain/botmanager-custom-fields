@@ -32,6 +32,10 @@ export default class BotManagerInput extends HTMLElement {
         ".input-control input[type=range]"
       );
     }
+    if (this.slider) {
+      this.rangeSlider.addEventListener("input", this._sliderInputHandler);
+    }
+    this.mainInput.addEventListener("input", this._textInputHandler);
   }
 
   get name() {
@@ -52,13 +56,9 @@ export default class BotManagerInput extends HTMLElement {
 
   _setValue(value) {
     if (this.slider) {
-      this.shadowRoot.querySelector(
-        ".input-control input[type=range]"
-      ).value = value;
+      this.rangeSlider.value = value;
     }
-    this.shadowRoot.querySelector(
-      `.input-control input[type=${this.type}]`
-    ).value = value;
+    this.mainInput.value = value;
     this.value = value;
   }
 
@@ -90,10 +90,6 @@ export default class BotManagerInput extends HTMLElement {
 
   connectedCallback() {
     this.style.gridColumn = this.span;
-    if (this.slider) {
-      this.rangeSlider.addEventListener("input", this._sliderInputHandler);
-    }
-    this.mainInput.addEventListener("input", this._textInputHandler);
   }
 
   disconnectedCallback() {

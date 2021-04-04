@@ -1,3 +1,5 @@
+import tooltipStyles from "../tooltip/bm-tooltip-styles.js";
+
 const createTemplate = (props) => {
   // Props
   const template = document.createElement("template");
@@ -5,7 +7,7 @@ const createTemplate = (props) => {
   const value = props.value.value;
   const span = props.span ? `1 / span ${props.span.value}` : "initial";
   const label = props.label ? props.label.value : "";
-  const tooltip = props.tooltip.value;
+  const tooltip = props.tooltip ? props.tooltip.value : "";
   const slider = props.slider ? props.slider.localName : "";
   const min = props.min ? props.min.value : "1";
   const max = props.max ? props.max.value : "100";
@@ -27,6 +29,7 @@ const createTemplate = (props) => {
   const sldTrackClr = props.sldTrackClr ? props.sldTrackClr.value : "#475260";
   const sldThumbClr = props.sldThumbClr ? props.sldThumbClr.value : "#ffffff";
   const uomClr = props.uomClr ? props.uomClr.value : "#757c85";
+  const focusBrdClr = props.focusBrdClr ? props.focusBrdClr.value : "#6a6e73";
 
   // Unit of measurement style
   const unitOfMesurement = props.uom
@@ -34,19 +37,35 @@ const createTemplate = (props) => {
     .input-control::after {
         content: '${props.uom.value}';
         display: inline-block;
-        height: 32px;
-        width: 100px;
+        width: auto;
         color: ${uomClr};
         position: absolute;
-        bottom: ${props.slider ? "30px" : "-2px"};
+        bottom: ${props.slider ? "50px" : "6px"};
         right: 0;
         font-weight: normal;
         font-size: 70%;
         z-index: 1;
         text-align: right;
-        padding-right: 12px;
+        padding: 7.8px 12px 7.8px 0;
     }
   `
+    : "";
+
+  const tooltipContentStyle = tooltip
+    ? tooltipStyles(ttBgClr, ttClr, ttBrdClr, ttBgClr)
+    : "";
+
+  const botmanagerTooltip = tooltip
+    ? `
+    <botmanager-tooltip
+      ttIconBgClr="${ttIconBgClr}"
+      ttIconClr="${ttIconClr}"
+      ttBgClr="${ttBgClr}"
+      ttClr="${ttClr}"
+      ttBrdClr="${ttBrdClr}"
+      tooltip="${tooltip}"
+    ></botmanager-tooltip>
+    `
     : "";
 
   // Main Input
@@ -58,16 +77,11 @@ const createTemplate = (props) => {
   // Slider
   const sliderElem = slider
     ? `
-    <input type="range" min="${min}" max="${max}" step="${step}" value="${value}" class="slider" />
-    `
-    : "";
-
-  // Tooltip
-  const tooltipElements = tooltip
-    ? `
-    <span class="tooltip-icon">&#63;</span>
-    <div class="tooltip-container">
-      <span class="tooltip-content">${tooltip}</span>
+    <div>
+      <output for="${name + "_slider"}" value="${value}"></output>
+      <input type="range" name="${
+        name + "_slider"
+      }" min="${min}" max="${max}" step="${step}" value="${value}" class="slider" />
     </div>
     `
     : "";
@@ -83,6 +97,10 @@ const createTemplate = (props) => {
       input[type=number] {
         -moz-appearance: textfield;
       }
+      input[type=number]:focus, input[type=text]:focus {
+        outline: none;
+        box-shadow: inset 0 0 0 1px ${focusBrdClr}, 0 0 10px 2px rgba(255,255,255, 0.3);
+      }
       .input-control * {
         box-sizing: border-box;
       }
@@ -93,20 +111,23 @@ const createTemplate = (props) => {
         padding: 6px 0;
         position: relative;
       }
+      ${tooltipContentStyle}
       .input-control div {
         display: flex;
-        align-items: center;
+        flex-wrap: wrap;
+        align-items: baseline;
         margin-bottom: 12px;
+        width: 100%;
       }
        .input-control label {
          font-size: 80%;
         font-weight: bold;
         color: ${labelClr};
+        flex: 1;
       }
       .input-control .bot-input {
-        min-height: 32px;
         width: 100%;
-        padding: 0 12px;
+        padding: 7.8px 12px 7.8px;
         background-color: ${inpBgClr};
         border: 1px solid ${inpBrdClr};
         border-radius: 6px;
@@ -127,11 +148,10 @@ const createTemplate = (props) => {
       .input-control .slider::-webkit-slider-thumb {
         -webkit-appearance: none;
       }
-
       .input-control .slider:focus {
         outline: none;
+        box-shadow: inset 0 0 0 1px ${focusBrdClr}, 0 0 10px 2px rgba(255,255,255, 0.3);
       }
-
       .input-control .slider::-ms-track {
         width: 100%;
         cursor: pointer;
@@ -166,6 +186,13 @@ const createTemplate = (props) => {
         box-shadow: none;
         border: none;
       }
+      .input-control .slider::-webkit-slider-thumb::before {
+        content: "foo";
+        display: inline-block;
+        width: 32px;
+        height: 32px;
+        background: tomato;
+      }
       .input-control .slider::-moz-range-track {
         width: 100%;
         height: 8.4px;
@@ -175,65 +202,12 @@ const createTemplate = (props) => {
         background: transparent;
       }
       ${unitOfMesurement}
-      .tooltip-icon {
-        display: inline-block;
-        height: 18px;
-        width: 18px;
-        border-radius: 50%;
-        background-color: ${ttIconBgClr};
-        margin-left: 12px;
-        text-align: center;
-        line-height: 18px;
-        vertical-align: middle;
-        color: ${ttIconClr};
-        font-weight: bold;
-        font-size: 72%;
-        user-select: none;
-        -webkit-user-select: none;
-        flex: 0 0 18px;
-      }
-      .tooltip-container {
-        position: relative;
-        pointer-events: none;
-      }
-      .tooltip-container .tooltip-content {
-        position: absolute;
-        display: block;
-        opacity: 0;
-        padding: 12px 18px;
-        font-weight: normal;
-        font-size: 60%;
-        min-width: 250px;
-        max-width: 280px;
-        background-color: ${ttBgClr};
-        color: ${ttClr};
-        border-radius: 4px;
-        top: 26px;
-        left: calc(50% - 100px);
-        z-index: 2;
-        border: 1px solid ${ttBrdClr};
-        transition: opacity 0.3s linear;
-      }
-      .tooltip-content::before {
-        content: '';
-        position: absolute;
-        display: inline-block;
-        width: 0px;
-        height: 0px;
-        border-style: solid;
-        border-width: 0 8px 12px 8px;
-        border-color: transparent transparent ${ttBgClr} transparent;
-        top: -8px;
-        left: calc(50% - 40px);
-      }
-      .tooltip-icon:hover + .tooltip-container .tooltip-content {
-        opacity: 1;
-      }
+      @media screen and (min-width: 768px) {}
     </style>
     <div class="input-control">
       <div>
         <label for="${name}">${label}</label>
-        ${tooltipElements}
+        ${botmanagerTooltip}
       </div>
       ${mainInput}
       ${sliderElem}

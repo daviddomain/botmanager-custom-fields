@@ -1,6 +1,18 @@
 const createTemplate = (props) => {
   const template = document.createElement("template");
   const columns = props.columns ? props.columns.value : "1";
+  const legend = props.legend ? props.legend.value : "";
+  const collapsible = props.collapsible ? props.collapsible.localName : "";
+
+  const dismiss = collapsible
+    ? `
+    <span class="dismiss">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+        </svg>
+    </span>
+  `
+    : "";
 
   template.innerHTML = `
     <style>
@@ -13,45 +25,48 @@ const createTemplate = (props) => {
         font-size: 120%;
         color: #e1eeff;
         padding: 40px 6px 0;
-        max-height: 800px;
-        overflow: hidden;
+        box-sizing: border-box;
         transition: all 0.28s ease-out;
       }
+      fieldset * {
+        box-sizing: border-box;
+      }
       fieldset.hide {
-        max-height: 64px !important;
+        max-height: 102px !important;
       }
       fieldset span {
-        display: inline-block;
-        width: 18px;
-        height: 18px;
+        display: block;
+        width: 22px;
+        height: 22px;
         color: #abb6c3;
         background-color: #161a1e;
         border-radius: 50%;
         text-align: center;
-        line-height: 18px;
+        line-height: 20px;
         vertical-align: middle;
-        padding: 0 1px 2px 0;
         position: absolute;
-        right: 16px;
-        top: 0px;
+        right: 25px;
+        top: 11px;
         font-size: 100%;
-        transform: rotate(90deg);
         cursor: pointer;
         z-index: 10;
+        transform: rotate(-180deg);
         -webkit-touch-callout: none;
         -moz-user-select: none;
         -webkit-user-select: none;
         user-select: none;
       }
       fieldset.hide span {
-        transform: rotate(-90deg);
+        transform: rotate(360deg);
       }
       fieldset div {
         display: flex;
         opacity: 1;
         flex-direction: column;
         align-items: stretch;
+        justify-content: stretch;
         padding: 16px 20px;
+        margin-top: 16px;
         border-top: 1px solid #5c6671;
         transition: all 0.12s ease;
       }
@@ -64,7 +79,7 @@ const createTemplate = (props) => {
         transform: translateY(32px);
         padding: 16px 20px 0;
         width: auto;
-        line-height: 48px;
+        
       }
       @media screen and (min-width: 768px) {
           fieldset div {
@@ -78,55 +93,18 @@ const createTemplate = (props) => {
       }
     </style>
     <fieldset>
-        <span class="dismiss">&lsaquo;</span>
-        <legend>Foo</legend>
+        ${dismiss}
+        <legend>${legend}</legend>
         <div>
             <slot name="fieldset-child"></slot>
         </div>
     </fieldset>
 `;
 
-  return template;
+  return {
+    template,
+    collapsible,
+  };
 };
 
-export default class BotManagerFieldset extends HTMLElement {
-  constructor() {
-    super();
-    const attributes = this.attributes;
-    this.attachShadow({ mode: "open" });
-    this.shadowRoot.appendChild(
-      createTemplate(attributes).content.cloneNode(true)
-    );
-
-    this.fieldset = this.shadowRoot.querySelector("fieldset");
-  }
-
-  _getLegend() {
-    return this.shadowRoot.querySelector("legend");
-  }
-
-  _getDismiss() {
-    return this.shadowRoot.querySelector(".dismiss");
-  }
-
-  _getFieldset() {
-    return this.shadowRoot.querySelector("fieldset");
-  }
-
-  _toggleFieldset = (evt) => {
-    this.fieldset.classList.toggle("hide");
-  };
-
-  _domContentLoaded = (evt) => {
-    this.fieldset.style.maxHeight =
-      this.fieldset.getBoundingClientRect().height + "px";
-  };
-
-  connectedCallback() {
-    const attributes = this.attributes;
-    const legend = attributes.legend ? attributes.legend.value : "";
-    this._getLegend().textContent = legend;
-    this._getDismiss().addEventListener("click", this._toggleFieldset);
-    document.addEventListener("DOMContentLoaded", this._domContentLoaded);
-  }
-}
+export default createTemplate;
