@@ -1,6 +1,9 @@
 const createTemplate = (props) => {
   const template = document.createElement("template");
 
+  const credentials = props.credentials
+    ? props.credentials.value
+    : "same-origin";
   const btnText = props.btnText ? props.btnText.value : "Send";
   const bgClr = props.bgClr ? props.bgClr.value : "#161a1e";
   const textClr = props.textClr ? props.textClr.value : "#abb6c3";
@@ -85,6 +88,7 @@ const createTemplate = (props) => {
     btnText,
     bgClr,
     textClr,
+    credentials,
   };
 };
 

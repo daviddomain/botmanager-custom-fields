@@ -13,6 +13,7 @@ export default class BotManagerForm extends HTMLElement {
       templateAndProps.template.content.cloneNode(true)
     );
 
+    this.credentials = templateAndProps.credentials;
     this.btnText = templateAndProps.btnText;
     this.bgClr = templateAndProps.bgClr;
     this.textClr = templateAndProps.textClr;
@@ -66,6 +67,7 @@ export default class BotManagerForm extends HTMLElement {
     fetch(this.action, {
       body: formData,
       method: "POST",
+      credentials: this.credentials,
     })
       .then((res) => {
         if (!res.ok) {

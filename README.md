@@ -41,17 +41,19 @@ Die `index.html` entählt ein vollständiges Beispiel.
 
 <br>
 
-| Attribute              | Feldtyp  | Beschreibung                            | Erforderlich |
-| ---------------------- | -------- | --------------------------------------- | ------------ |
+| Attribute              | Feldtyp  | Beschreibung                                                                                                                                          | Erforderlich |
+| ---------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
 | Funktionale Attribute: |
-| _action_               | `string` | Ziel des Formulars.                     | &check;      |
+| _action_               | `string` | Ziel des Formulars.                                                                                                                                   | &check;      |
+| _credentials_          | `string` | Credentials Paramenter des AJAX Req: [Fetch Parameters](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#parameters). | &cross;      |
+| _btnText_              | `string` | Text des Submit Buttons.                                                                                                                              | &cross;      |
 | Visuelle Attribute:    |
-| _bgClr_                | `string` | Hintergrundfarbe des Formulars.         | &cross;      |
-| _textClr_              | `string` | Die Textfarbe des Formulars.            | &cross;      |
-| _btnBgClr_             | `string` | Hintergrundfarbe des Buttons.           | &cross;      |
-| _btnBgHoverClr_        | `string` | Hintergrundfarbe des Buttons bei Hover. | &cross;      |
-| _btnTextClr_           | `string` | Textfarbe des Buttons.                  | &cross;      |
-| _btnTextHoverClr_      | `string` | Textfarbe des Buttons bei Hover.        | &cross;      |
+| _bgClr_                | `string` | Hintergrundfarbe des Formulars.                                                                                                                       | &cross;      |
+| _textClr_              | `string` | Die Textfarbe des Formulars.                                                                                                                          | &cross;      |
+| _btnBgClr_             | `string` | Hintergrundfarbe des Buttons.                                                                                                                         | &cross;      |
+| _btnBgHoverClr_        | `string` | Hintergrundfarbe des Buttons bei Hover.                                                                                                               | &cross;      |
+| _btnTextClr_           | `string` | Textfarbe des Buttons.                                                                                                                                | &cross;      |
+| _btnTextHoverClr_      | `string` | Textfarbe des Buttons bei Hover.                                                                                                                      | &cross;      |
 
 <br>
 <br>
