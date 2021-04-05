@@ -7,6 +7,8 @@ const createTemplate = (props) => {
   const collapsible = props.collapsible ? props.collapsible.localName : "";
   const switchable = props.switchable ? props.switchable.specified : false;
 
+  const bgClr = props.bgClr ? props.bgClr.value : "#32373d";
+
   const switchElement = switchable
     ? `<botmanager-switch for="fieldset"></botmanager-switch>`
     : "";
@@ -25,7 +27,7 @@ const createTemplate = (props) => {
     <style>
       fieldset {
         position: relative;
-        background-color: #32373d;
+        background-color: ${bgClr};
         border-radius: 6px;
         border: 0;
         font-weight: bold;

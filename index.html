@@ -20,7 +20,7 @@
         max-width: 1228px;
         margin: 0 auto;
       }
-      form {
+      /* form {
         background-color: #161a1e;
         color: #abb6c3;
         font-size: 100%;
@@ -28,15 +28,22 @@
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
           Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
           "Segoe UI Symbol";
-      }
+      } */
     </style>
   </head>
 
   <body>
     <div class="container">
-      <form>
+      <botmanager-form
+        action="http://david-domain.com/bm-form/receive-form.php"
+      >
         <!--Form Fieldset-->
-        <botmanager-fieldset legend="Stop Loss" columns="2" switchable>
+        <botmanager-fieldset
+          slot="form-child"
+          legend="Stop Loss"
+          columns="2"
+          switchable
+        >
           <botmanager-input
             slot="fieldset-child"
             name="stop-loss"
@@ -62,14 +69,19 @@
           ></botmanager-switch>
           <botmanager-switch
             slot="fieldset-child"
-            name="stop-loss-timeout"
-            label="Stop Loss Timeout"
+            name="foo-bar"
+            label="Foo Bar"
             tooltip="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt."
             checked
           ></botmanager-switch>
         </botmanager-fieldset>
         <!--Form Fieldset-->
-        <botmanager-fieldset legend="Safety orders" columns="2" collapsible>
+        <botmanager-fieldset
+          slot="form-child"
+          legend="Safety orders"
+          columns="2"
+          collapsible
+        >
           <botmanager-input
             slot="fieldset-child"
             name="max-trades-count"
@@ -136,7 +148,12 @@
           </botmanager-input>
         </botmanager-fieldset>
         <!--Form Fieldset-->
-        <botmanager-fieldset legend="Advanced Settings" columns="2" collapsible>
+        <botmanager-fieldset
+          slot="form-child"
+          legend="Advanced Settings"
+          columns="2"
+          collapsible
+        >
           <botmanager-input
             span="2"
             slot="fieldset-child"
@@ -185,22 +202,18 @@
           >
           </botmanager-input>
         </botmanager-fieldset>
-        <button type="submit">send</button>
-      </form>
+      </botmanager-form>
     </div>
     <script type="module" src="./js/index.js"></script>
+
     <script>
-      const form = document.querySelector("form");
-      const onFormSubmit = (evt) => {
-        evt.preventDefault();
-        console.log(evt.target.elements);
-        for (let elem of form.children) {
-          if (elem.tagName.includes("-")) {
-            console.dir(elem);
-          }
+      customElements.whenDefined("botmanager-form").then(() => {
+        const botManagerForm = document.querySelector("botmanager-form");
+        function serverResponse(data) {
+          this.showResponse(data, 6000);
         }
-      };
-      form.addEventListener("submit", onFormSubmit);
+        botManagerForm.response(serverResponse);
+      });
     </script>
   </body>
 </html>

@@ -33,6 +33,17 @@ export default class BotManagerSelect extends HTMLElement {
     return this;
   }
 
+  get disabled() {
+    return this.getAttribute("disabled");
+  }
+
+  serializedData() {
+    return {
+      name: this.name,
+      value: this.value,
+    };
+  }
+
   _onChangeSelect = (evt) => {
     this.value = this.select.options[this.select.selectedIndex].value;
   };

@@ -24,6 +24,10 @@ export default class BotManagerSwitch extends HTMLElement {
     this.checkbox.checked = templateAndProps.checked;
   }
 
+  get name() {
+    return this.getAttribute("name");
+  }
+
   get checked() {
     return this.getAttribute("checked");
   }
@@ -35,6 +39,17 @@ export default class BotManagerSwitch extends HTMLElement {
     }
     this.removeAttribute("checked");
     return this;
+  }
+
+  get disabled() {
+    return this.getAttribute("disabled");
+  }
+
+  serializedData() {
+    return {
+      name: this.name,
+      value: this.checked === null ? false : true,
+    };
   }
 
   _onCheckChange = () => {
@@ -53,7 +68,6 @@ export default class BotManagerSwitch extends HTMLElement {
   attributeChangedCallback(attrName, oldVal, newVal) {
     if (typeof newVal === "string") {
       this.checkbox.setAttribute(attrName, newVal);
-      console.log(this.label);
       this.switch.classList.add("disabled");
     } else {
       this.checkbox.removeAttribute(attrName);

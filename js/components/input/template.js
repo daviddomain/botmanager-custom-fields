@@ -79,7 +79,7 @@ const createTemplate = (props) => {
   const sliderElem = slider
     ? `
     <div>
-      <output for="${name + "_slider"}" value="${value}"></output>
+      <!--<output for="${name + "_slider"}" value="${value}"></output>-->
       <input type="range" name="${
         name + "_slider"
       }" min="${min}" max="${max}" step="${step}" value="${value}" class="slider" ${disabled} />
@@ -149,6 +149,9 @@ const createTemplate = (props) => {
           border: none;
           border-radius: 4.4px;
       }
+      .input-control .slider.disabled {
+        opacity: 0.3;
+      }
       .input-control .slider::-webkit-slider-thumb {
         -webkit-appearance: none;
       }
@@ -173,6 +176,9 @@ const createTemplate = (props) => {
         cursor: pointer;
         margin-top: -3.4px;
       }
+      .input-control .slider.disabled::-webkit-slider-thumb {
+        cursor: initial;
+      }
       .input-control .slider::-webkit-slider-runnable-track {
         width: 100%;
         height: 8.4px;
@@ -180,6 +186,9 @@ const createTemplate = (props) => {
         border-radius: 4.4px;
         border: none;
         background: transparent;
+      }
+      .input-control .slider.disabled::-webkit-slider-runnable-track {
+        cursor: initial;
       }
       .input-control .slider::-moz-range-thumb {
         height: 16px;
@@ -190,6 +199,10 @@ const createTemplate = (props) => {
         box-shadow: none;
         border: none;
       }
+      .input-control .slider.disabled::-moz-range-thumb {
+        cursor: initial;
+      }
+      /*
       .input-control .slider::-webkit-slider-thumb::before {
         content: "foo";
         display: inline-block;
@@ -197,6 +210,7 @@ const createTemplate = (props) => {
         height: 32px;
         background: tomato;
       }
+      */
       .input-control .slider::-moz-range-track {
         width: 100%;
         height: 8.4px;
@@ -204,6 +218,9 @@ const createTemplate = (props) => {
         border-radius: 4.4px;
         border: none;
         background: transparent;
+      }
+      .input-control .slider.disabled::-moz-range-track {
+        cursor: initial;
       }
       ${unitOfMesurement}
       @media screen and (min-width: 768px) {}

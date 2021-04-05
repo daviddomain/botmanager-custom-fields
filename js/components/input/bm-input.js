@@ -58,6 +58,10 @@ export default class BotManagerInput extends HTMLElement {
     this.setAttribute("value", newValue);
   }
 
+  get disabled() {
+    return this.getAttribute("disabled");
+  }
+
   _setValue(value) {
     if (this.slider) {
       this.rangeSlider.value = value;
@@ -95,10 +99,13 @@ export default class BotManagerInput extends HTMLElement {
   attributeChangedCallback(attrName, oldVal, newVal) {
     if (typeof newVal === "string") {
       this.mainInput.setAttribute(attrName, newVal);
-      this.slider && this.slider.setAttribute(attrName, newVal);
+      this.slider && this.rangeSlider.setAttribute(attrName, newVal);
+      this.slider && this.rangeSlider.classList.add("disabled");
+      this.slider && console.log(this.rangeSlider.parentElement);
     } else {
       this.mainInput.removeAttribute(attrName);
-      this.slider && this.slider.removeAttribute(attrName);
+      this.slider && this.rangeSlider.removeAttribute(attrName);
+      this.slider && this.rangeSlider.classList.remove("disabled");
     }
   }
 
