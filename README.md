@@ -60,7 +60,7 @@ Die `index.html` entählt ein vollständiges Beispiel.
 
 ---
 
-Mit dem `<botmanager-fieldset>` kannst du dein Formular aufgliedern und in unterschiedlich Bereiche aufteilen.<br>
+Mit dem `<botmanager-fieldset>` kannst du dein Formular aufgliedern und in unterschiedliche Bereiche aufteilen.<br>
 Außerdem kannst du bestimmen, wieviele Spalten ein Fieldset haben soll.
 <br>
 
