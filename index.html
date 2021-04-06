@@ -27,6 +27,8 @@
     <div class="container">
       <botmanager-form
         action="https://david-domain.com/bm-form/receive-form.php"
+        method="POST"
+        contentType="multipart/form-data"
       >
         <!--Form Fieldset-->
         <botmanager-fieldset
@@ -85,6 +87,12 @@
           </botmanager-input>
           <botmanager-input
             slot="fieldset-child"
+            type="hidden"
+            name="hidden-field"
+            value="foo"
+          ></botmanager-input>
+          <botmanager-input
+            slot="fieldset-child"
             name="max-active-trades-count"
             type="number"
             value="0"
@@ -99,13 +107,14 @@
             span="2"
             slot="fieldset-child"
             name="price-deviation-safety"
-            type="number"
-            value="22.7"
-            uom="%"
+            type="text"
+            value="22.70"
+            erase="[^0-9.]"
+            uom="$"
             slider
-            min="0.0"
-            max="100.0"
-            step="0.1"
+            min="0.00"
+            max="100.00"
+            step="0.01"
             label="Price deviation to open safety orders (% from initial order)"
             tooltip="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt."
             sldValueClr="tomato"

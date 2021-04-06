@@ -4,6 +4,10 @@ const createTemplate = (props) => {
   const credentials = props.credentials
     ? props.credentials.value
     : "same-origin";
+  const method = props.method ? props.method.value : "POST";
+  const contentType = props.contentType
+    ? props.contentType.value
+    : "multipart/form-data";
   const btnText = props.btnText ? props.btnText.value : "Send";
   const bgClr = props.bgClr ? props.bgClr.value : "#161a1e";
   const textClr = props.textClr ? props.textClr.value : "#abb6c3";
@@ -89,6 +93,8 @@ const createTemplate = (props) => {
     bgClr,
     textClr,
     credentials,
+    method,
+    contentType,
   };
 };
 

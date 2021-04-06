@@ -14,6 +14,8 @@ export default class BotManagerForm extends HTMLElement {
     );
 
     this.credentials = templateAndProps.credentials;
+    this.method = templateAndProps.method;
+    this.contentType = templateAndProps.contentType;
     this.btnText = templateAndProps.btnText;
     this.bgClr = templateAndProps.bgClr;
     this.textClr = templateAndProps.textClr;
@@ -56,17 +58,29 @@ export default class BotManagerForm extends HTMLElement {
   }
 
   _letsFetch(fieldsets) {
+    const isJsonContent = this.contentType === "application/json";
     let formData = new FormData();
-    fieldsets
+    let jsonData = { data: [] };
+
+    const data = fieldsets
       .map((fieldset) => Array.from(fieldset.children))
       .flatMap((child) => child)
       .filter((input) => input.disabled === null)
-      .map((input) => input.serializedData())
-      .forEach((input) => formData.append(input.name, input.value));
+      .map((input) => input.serializedData());
+    if (!isJsonContent) {
+      data.forEach((input) => formData.append(input.name, input.value));
+    }
 
     fetch(this.action, {
-      body: formData,
-      method: "POST",
+      body: isJsonContent
+        ? JSON.stringify(jsonData.data.concat(data))
+        : formData,
+      method: this.method,
+      headers: isJsonContent
+        ? {
+            "Content-Type": "application/json",
+          }
+        : {},
       credentials: this.credentials,
     })
       .then((res) => {

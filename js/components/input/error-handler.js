@@ -7,11 +7,11 @@ const errorHandler = (attributes) => {
   if (!attributes.slot) throw new Error(MISSING_SLOT);
   if (!attributes.name) throw new Error(MISSING_NAME);
   if (!attributes.value) throw new Error(MISSING_VALUE);
-  if (
-    (attributes.slider && !attributes.type) ||
-    (attributes.slider && attributes.type.value === "text")
-  )
-    throw new Error(WRONG_TYPE);
+  // if (
+  //   (attributes.slider && !attributes.type) ||
+  //   (attributes.slider && attributes.type.value === "text")
+  // )
+  //   throw new Error(WRONG_TYPE);
 };
 
 export default errorHandler;

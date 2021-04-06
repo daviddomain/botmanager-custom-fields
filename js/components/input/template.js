@@ -6,6 +6,7 @@ const createTemplate = (props) => {
   const name = props.name.value;
   const value = props.value.value;
   const disabled = props.disabled ? "disabled" : "";
+  const erase = props.erase ? props.erase.value : "";
   const span = props.span ? `1 / span ${props.span.value}` : "initial";
   const label = props.label ? props.label.value : "";
   const tooltip = props.tooltip ? props.tooltip.value : "";
@@ -70,10 +71,26 @@ const createTemplate = (props) => {
     : "";
 
   // Main Input
-  const mainInput =
-    type === "number"
-      ? `<input name="${name}" type="${type}" value="${value}" min="${min}" max="${max}" step="${step}" class="bot-input" ${disabled} />`
-      : `<input name="${name}" type="${type}" value="${value}" class="bot-input" ${disabled} />`;
+  const mainInputFabric = (type, name, value, min, max, step, disabled) => {
+    switch (type) {
+      case "number":
+        return `<input name="${name}" type="${type}" value="${value}" min="${min}" max="${max}" step="${step}" class="bot-input" ${disabled} />`;
+      case "hidden":
+        return `<input name="${name}" type="${type}" value="${value}" ${disabled} />`;
+      default:
+        return `<input name="${name}" type="${type}" value="${value}" class="bot-input" ${disabled} />`;
+    }
+  };
+
+  const mainInput = mainInputFabric(
+    type,
+    name,
+    value,
+    min,
+    max,
+    step,
+    disabled
+  );
 
   // Slider
   const sliderElem = slider
@@ -87,9 +104,29 @@ const createTemplate = (props) => {
     `
     : "";
 
+  const finalInput =
+    type !== "hidden"
+      ? `
+    <div class="input-control">
+      <div>
+        <label for="${name}">${label}</label>
+        ${botmanagerTooltip}
+      </div>
+      ${mainInput}
+      ${sliderElem}
+    </div>
+    `
+      : mainInput;
+
   // Template HTML
   template.innerHTML = `
     <style>
+    :host([type=hidden]) {
+      display: inline;
+      width: 0;
+      height: 0;
+      display: none;
+    }
       input::-webkit-outer-spin-button,
       input::-webkit-inner-spin-button {
         -webkit-appearance: none;
@@ -225,14 +262,7 @@ const createTemplate = (props) => {
       ${unitOfMesurement}
       @media screen and (min-width: 768px) {}
     </style>
-    <div class="input-control">
-      <div>
-        <label for="${name}">${label}</label>
-        ${botmanagerTooltip}
-      </div>
-      ${mainInput}
-      ${sliderElem}
-    </div>
+      ${finalInput}
     `;
   return {
     template,
@@ -243,6 +273,7 @@ const createTemplate = (props) => {
     span,
     value,
     type,
+    erase,
     sldValueClr,
     sldTrackClr,
   };

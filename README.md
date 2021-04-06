@@ -46,6 +46,8 @@ Die `index.html` entählt ein vollständiges Beispiel.
 | Funktionale Attribute: |
 | _action_               | `string` | Ziel des Formulars.                                                                                                                                   | &check;      |
 | _credentials_          | `string` | Credentials Paramenter des AJAX Req: [Fetch Parameters](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#parameters). | &cross;      |
+| _method_               | `string` | HTTP Methode (GET, POST, PUT, DELETE).                                                                                                                | &cross;      |
+| _contentType_          | `string` | <multipart/form-data>, oder <application/json>                                                                                                        | &cross;      |
 | _btnText_              | `string` | Text des Submit Buttons.                                                                                                                              | &cross;      |
 | Visuelle Attribute:    |
 | _bgClr_                | `string` | Hintergrundfarbe des Formulars.                                                                                                                       | &cross;      |

@@ -15,6 +15,7 @@ export default class BotManagerInput extends HTMLElement {
     const templateAndProps = createTemplate(attributes);
     this.name = attributes.name.value;
     this.type = templateAndProps.type;
+    this.erase = templateAndProps.erase;
     this.slider = templateAndProps.slider;
     this.span = templateAndProps.span;
     this.min = templateAndProps.min;
@@ -35,11 +36,11 @@ export default class BotManagerInput extends HTMLElement {
       this.rangeSlider = this.shadowRoot.querySelector(
         ".input-control input[type=range]"
       );
-    }
-    if (this.slider) {
       this.rangeSlider.addEventListener("input", this._sliderInputHandler);
     }
-    this.mainInput.addEventListener("input", this._textInputHandler);
+    if (this.mainInput) {
+      this.mainInput.addEventListener("input", this._textInputHandler);
+    }
   }
 
   get name() {
@@ -89,11 +90,21 @@ export default class BotManagerInput extends HTMLElement {
   };
 
   _textInputHandler = (evt) => {
-    const value = evt.target.value;
-    if (this.slider) {
-      this._setSliderBgStyle(value);
+    if (this.erase) {
+      console.log(this.erase);
+      const regex = new RegExp(this.erase, "gi");
+      const value = evt.target.value.replace(regex, "");
+      if (this.slider) {
+        this._setSliderBgStyle(value);
+      }
+      this._setValue(value);
+    } else {
+      const value = evt.target.value;
+      if (this.slider) {
+        this._setSliderBgStyle(value);
+      }
+      this._setValue(value);
     }
-    this._setValue(value);
   };
 
   attributeChangedCallback(attrName, oldVal, newVal) {
