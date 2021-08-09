@@ -115,13 +115,12 @@ const globalStyles = minify`
 
 document.addEventListener("DOMContentLoaded", () => {
   document.head.insertAdjacentHTML("beforeend", globalStyles);
+  window.customElements.define("botmanager-form", BotManagerForm);
+  window.customElements.define("botmanager-fieldset", BotManagerFieldset);
+  window.customElements.define("botmanager-tooltip", BotManagerTooltip);
+  window.customElements.define("botmanager-input", BotManagerInput);
+  window.customElements.define("botmanager-select", BotManagerSelect);
+  window.customElements.define("botmanager-switch", BotManagerSwitch);
+  window.customElements.define("botmanager-tabs", BotManagerTabs);
+  window.customElements.define("botmanager-generic", BotManagerGeneric);
 });
-
-window.customElements.define("botmanager-form", BotManagerForm);
-window.customElements.define("botmanager-fieldset", BotManagerFieldset);
-window.customElements.define("botmanager-tooltip", BotManagerTooltip);
-window.customElements.define("botmanager-input", BotManagerInput);
-window.customElements.define("botmanager-select", BotManagerSelect);
-window.customElements.define("botmanager-switch", BotManagerSwitch);
-window.customElements.define("botmanager-tabs", BotManagerTabs);
-window.customElements.define("botmanager-generic", BotManagerGeneric);
