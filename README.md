@@ -14,7 +14,7 @@ Das `<botmanager-form>` Element besitzt eine `response` Funktion,
 um die Antwort des Server zu verarbeiten.<br>Alle anderen Elemente werden über Attribute definiert,
 ohne Funktionen aufrufen zu müssen.<br><br>
 
-Um die Antwort des Servers zu verarbeiten reicht folgndes Schipsel:<br>
+Um die Antwort des Servers zu verarbeiten reicht folgndes Schnipsel:<br>
 
 ```javascript
 <script>

@@ -30,6 +30,104 @@
         method="POST"
         contentType="multipart/form-data"
       >
+        <botmanager-fieldset
+          slot="form-child"
+          legend="Generic Example"
+          columns="2"
+        >
+          <!--
+          Generische HTML Beispiele. 
+          Einige Kind-Elemente der geslotteten Elemente
+          können nur über globale Regeln gestyled werden.
+          Dazu gibt es nun in der index.js ein Config-Object
+          um Farben, oder andere Regel zu definieren.
+        -->
+          <botmanager-generic slot="fieldset-child">
+            <!-- Typography Headings -->
+            <h1 slot="generic-child">H1 Heading</h1>
+            <h2 slot="generic-child">H2 Heading</h2>
+            <h3 slot="generic-child">H3 Heading</h3>
+            <h4 slot="generic-child">H4 Heading</h4>
+            <h5 slot="generic-child">H5 Heading</h5>
+            <h6 slot="generic-child">H6 Heading</h6>
+            <!-- Typography Paragraph -->
+            <p slot="generic-child">
+              Lorem ipsum dolor sit amet,
+              <!-- Typography Bold -->
+              <strong
+                >consetetur sadipscing elitr, sed diam nonumy eirmod
+                tempor</strong
+              >
+              invidunt ut labore et dolore magna aliquyam erat, sed diam
+              voluptua.
+              <!-- Typography Anchor -->
+              <a
+                class="link-style"
+                href="https://google.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                >At vero eos</a
+              >
+              et accusam et justo duo dolores et ea rebum. Stet clita kasd
+              <!-- Typography Italic -->
+              <em>gubergren, no sea takimata sanctus est Lorem ipsum dolor</em>
+              sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+              sed diam nonumy eirmod.
+            </p>
+          </botmanager-generic>
+
+          <botmanager-generic slot="fieldset-child">
+            <!-- Tabs -->
+            <botmanager-tabs slot="generic-child" tabs="Assistant,Chart,Table">
+              <div class="tab-content show" data-tab="Assistant">
+                <dl>
+                  <dt>Balance</dt>
+                  <dd>372.05393164 USDT</dd>
+                </dl>
+                <dl>
+                  <dt>Current used amount</dt>
+                  <dd>387.77449121 USDT</dd>
+                </dl>
+                <dl>
+                  <dt>Max amount for bot usage</dt>
+                  <dd class="success-text">1320 USDT</dd>
+                </dl>
+                <dl>
+                  <dt>Max safe order price deviation</dt>
+                  <dd class="warn-text">29.25%</dd>
+                </dl>
+                <dl>
+                  <dt>% of available balance to be used by bot</dt>
+                  <dd class="error-text">> 100%</dd>
+                </dl>
+                <!-- Alerts -->
+                <div class="alert alert-success">
+                  Success! Your settings have been saved.
+                </div>
+              </div>
+              <div class="tab-content" data-tab="Chart">Chart Content</div>
+              <div class="tab-content" data-tab="Table">Table Content</div>
+            </botmanager-tabs>
+          </botmanager-generic>
+
+          <botmanager-generic span="2" slot="fieldset-child">
+            <!-- Divider -->
+            <hr slot="generic-child" />
+            <!-- Space Between Elements -->
+            <div slot="generic-child" class="flex-space-between">
+              <img src="https://via.placeholder.com/200" alt="" />
+              <img src="https://via.placeholder.com/200" alt="" />
+              <img src="https://via.placeholder.com/600x200" alt="" />
+            </div>
+            <!-- Alerts -->
+            <div slot="generic-child" class="alert alert-warning">
+              Warning! Bot will use amount greater than you have on exchange.
+            </div>
+            <div slot="generic-child" class="alert alert-error">
+              Error! Ups, sorry something went totally wrong.
+            </div>
+          </botmanager-generic>
+        </botmanager-fieldset>
         <!--Form Fieldset-->
         <botmanager-fieldset
           slot="form-child"
@@ -111,10 +209,6 @@
             value="22.70"
             erase="[^0-9.]"
             uom="$"
-            slider
-            min="0.00"
-            max="100.00"
-            step="0.01"
             label="Price deviation to open safety orders (% from initial order)"
             tooltip="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt."
             sldValueClr="tomato"
