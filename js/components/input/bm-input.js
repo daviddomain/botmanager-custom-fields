@@ -43,6 +43,16 @@ export default class BotManagerInput extends HTMLElement {
     }
   }
 
+  static get observedAttributes() {
+    return ["value"];
+  }
+
+  attributeChangedCallback(attrName, oldValue, newValue) {
+    if (attrName === "value") {
+      this.value = parseInt(newValue, 10);
+    }
+  }
+
   get name() {
     return this.getAttribute("name");
   }
@@ -57,6 +67,7 @@ export default class BotManagerInput extends HTMLElement {
 
   set value(newValue) {
     this.setAttribute("value", newValue);
+    this.dispatchEvent(new CustomEvent("valueChange", { detail: newValue }));
   }
 
   get disabled() {
@@ -91,7 +102,7 @@ export default class BotManagerInput extends HTMLElement {
 
   _textInputHandler = (evt) => {
     if (this.erase) {
-      console.log(this.erase);
+      //console.log(this.erase);
       const regex = new RegExp(this.erase, "gi");
       const value = evt.target.value.replace(regex, "");
       if (this.slider) {
