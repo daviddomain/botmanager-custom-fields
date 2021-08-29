@@ -47,11 +47,11 @@ export default class BotManagerInput extends HTMLElement {
     return ["value"];
   }
 
-  attributeChangedCallback(attrName, oldValue, newValue) {
-    if (attrName === "value") {
-      this.value = parseInt(newValue, 10);
-    }
-  }
+  // attributeChangedCallback(attrName, oldValue, newValue) {
+  //   if (attrName === "value") {
+  //     this.value = parseInt(newValue, 10);
+  //   }
+  // }
 
   get name() {
     return this.getAttribute("name");
@@ -123,7 +123,7 @@ export default class BotManagerInput extends HTMLElement {
       this.mainInput && this.mainInput.setAttribute(attrName, newVal);
       this.slider && this.rangeSlider.setAttribute(attrName, newVal);
       this.slider && this.rangeSlider.classList.add("disabled");
-      this.slider && console.log(this.rangeSlider.parentElement);
+      //this.slider && console.log(this.rangeSlider.parentElement);
     } else {
       this.mainInput && this.mainInput.removeAttribute(attrName);
       this.slider && this.rangeSlider.removeAttribute(attrName);
