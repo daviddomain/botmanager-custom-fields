@@ -120,12 +120,12 @@ export default class BotManagerInput extends HTMLElement {
 
   attributeChangedCallback(attrName, oldVal, newVal) {
     if (typeof newVal === "string") {
-      this.mainInput.setAttribute(attrName, newVal);
+      this.mainInput && this.mainInput.setAttribute(attrName, newVal);
       this.slider && this.rangeSlider.setAttribute(attrName, newVal);
       this.slider && this.rangeSlider.classList.add("disabled");
       this.slider && console.log(this.rangeSlider.parentElement);
     } else {
-      this.mainInput.removeAttribute(attrName);
+      this.mainInput && this.mainInput.removeAttribute(attrName);
       this.slider && this.rangeSlider.removeAttribute(attrName);
       this.slider && this.rangeSlider.classList.remove("disabled");
     }
