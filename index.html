@@ -334,7 +334,9 @@
         const value = parseInt(evt.target.value, 10);
         const prevElVal = parseInt(evt.target.previousElementSibling.value, 10);
         const newVal = value + prevElVal;
-        evt.target.previousElementSibling.setAttribute("value", newVal);
+        if (newVal) {
+          evt.target.previousElementSibling.setAttribute("value", newVal);
+        }
         console.dir(evt.target.previousElementSibling);
       }
       const inp = document.getElementById("onValueChangeExample");
