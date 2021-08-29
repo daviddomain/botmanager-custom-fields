@@ -29,15 +29,19 @@ export default class BotManagerTabs extends HTMLElement {
       .assignedElements();
     const children = evt.currentTarget.children;
     const len = children.length;
-    for (let i = 0; i < len; i++) {
-      children[i].classList.remove("active");
-      tabContentElements[i].classList.remove("show");
+    const target = evt.target;
+    if (target.tagName === "LI") {
+      for (let i = 0; i < len; i++) {
+        children[i].classList.remove("active");
+        tabContentElements[i].classList.remove("show");
+      }
+
+      target.classList.add("active");
+      const content2Show = tabContentElements.filter(
+        (elm) => elm.dataset.tab === evt.target.textContent
+      );
+      if (content2Show.length) content2Show[0].classList.add("show");
     }
-    evt.target.classList.add("active");
-    const content2Show = tabContentElements.filter(
-      (elm) => elm.dataset.tab === evt.target.textContent
-    );
-    if (content2Show.length) content2Show[0].classList.add("show");
   };
 
   connectedCallback() {
