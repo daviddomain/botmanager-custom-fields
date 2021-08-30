@@ -5,7 +5,7 @@ export default class BotManagerInput extends HTMLElement {
   static formAssociated = true;
 
   static get observedAttributes() {
-    return ["disabled"];
+    return ["disabled", "value"];
   }
 
   constructor() {
@@ -23,6 +23,7 @@ export default class BotManagerInput extends HTMLElement {
     this.step = templateAndProps.step;
     this.sldValueClr = templateAndProps.sldValueClr;
     this.sldTrackClr = templateAndProps.sldTrackClr;
+
     this.attachShadow({ mode: "open" });
     this.shadowRoot.appendChild(
       templateAndProps.template.content.cloneNode(true)
@@ -43,16 +44,6 @@ export default class BotManagerInput extends HTMLElement {
     }
   }
 
-  static get observedAttributes() {
-    return ["value"];
-  }
-
-  // attributeChangedCallback(attrName, oldValue, newValue) {
-  //   if (attrName === "value") {
-  //     this.value = parseInt(newValue, 10);
-  //   }
-  // }
-
   get name() {
     return this.getAttribute("name");
   }
@@ -67,7 +58,6 @@ export default class BotManagerInput extends HTMLElement {
 
   set value(newValue) {
     this.setAttribute("value", newValue);
-    this.dispatchEvent(new CustomEvent("valueChange", { detail: newValue }));
   }
 
   get disabled() {
@@ -76,9 +66,8 @@ export default class BotManagerInput extends HTMLElement {
 
   _setValue(value) {
     if (this.slider) {
-      this.rangeSlider.value = value;
+      value ? (this.rangeSlider.value = value) : (this.rangeSlider.value = 0);
     }
-    this.mainInput.value = value;
     this.value = value;
   }
 
@@ -102,32 +91,38 @@ export default class BotManagerInput extends HTMLElement {
 
   _textInputHandler = (evt) => {
     if (this.erase) {
-      //console.log(this.erase);
       const regex = new RegExp(this.erase, "gi");
       const value = evt.target.value.replace(regex, "");
       if (this.slider) {
         this._setSliderBgStyle(value);
       }
       this._setValue(value);
+      this.dispatchEvent(new CustomEvent("valueChange", { detail: value }));
     } else {
       const value = evt.target.value;
       if (this.slider) {
         this._setSliderBgStyle(value);
       }
       this._setValue(value);
+      this.dispatchEvent(new CustomEvent("valueChange", { detail: value }));
     }
   };
 
   attributeChangedCallback(attrName, oldVal, newVal) {
-    if (typeof newVal === "string") {
+    if (attrName === "disabled") {
+      if (typeof newVal === "string") {
+        this.mainInput && this.mainInput.setAttribute(attrName, newVal);
+        this.slider && this.rangeSlider.setAttribute(attrName, newVal);
+        this.slider && this.rangeSlider.classList.add("disabled");
+        this.slider && console.log(this.rangeSlider.parentElement);
+      } else {
+        this.mainInput.removeAttribute(attrName);
+        this.slider && this.rangeSlider.removeAttribute(attrName);
+        this.slider && this.rangeSlider.classList.remove("disabled");
+      }
+    }
+    if (attrName === "value") {
       this.mainInput && this.mainInput.setAttribute(attrName, newVal);
-      this.slider && this.rangeSlider.setAttribute(attrName, newVal);
-      this.slider && this.rangeSlider.classList.add("disabled");
-      //this.slider && console.log(this.rangeSlider.parentElement);
-    } else {
-      this.mainInput && this.mainInput.removeAttribute(attrName);
-      this.slider && this.rangeSlider.removeAttribute(attrName);
-      this.slider && this.rangeSlider.classList.remove("disabled");
     }
   }
 
