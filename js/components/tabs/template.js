@@ -1,7 +1,7 @@
 const createTemplate = (props) => {
-  const span = props.span ? `1 / span ${props.span.value}` : "initial";
-  const tabs = props.tabs.value.split(",");
-  const template = document.createElement("template");
+  const span = props.span ? `1 / span ${props.span.value}` : 'initial';
+  const tabs = props.tabs.value.split(',');
+  const template = document.createElement('template');
 
   // Template HTML
   template.innerHTML = `
@@ -32,6 +32,8 @@ const createTemplate = (props) => {
         }
         ::slotted(.show) {
             display: block;
+            font-weight: normal;
+            font-size: 13px;
         }
     </style>
     <div class="tabset">
@@ -42,7 +44,7 @@ const createTemplate = (props) => {
               ? `<li role="presentation">${tab}</li>`
               : `<li role="presentation" class="active">${tab}</li>`
           )
-          .join("")}
+          .join('')}
         </ul>
         <slot></slot>
     </div>

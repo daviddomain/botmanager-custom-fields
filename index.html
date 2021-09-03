@@ -1,408 +1,288 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    />
-    <title>Document</title>
 
-    <style>
-      body {
-        padding: 0;
-        margin: 0;
-        background-color: #161a1e;
-      }
-      .container {
-        width: 100%;
-        max-width: 1228px;
-        margin: 0 auto;
-      }
-      #chartdiv {
-        width: 100%;
-        height: 500px;
-        font-size: 50%;
-      }
-      #chartdiv svg text {
-        fill: #e1eeff !important;
-      }
-    </style>
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Document</title>
 
-  <body>
-    <div class="container">
-      <botmanager-form
-        action="https://david-domain.com/bm-form/receive-form.php"
-        method="POST"
-        contentType="multipart/form-data"
-      >
-        <botmanager-fieldset
-          slot="form-child"
-          legend="Generic Example"
-          columns="2"
-        >
-          <!--
-          Generische HTML Beispiele. 
+  <style>
+    body {
+      padding: 0;
+      margin: 0;
+      background-color: #161a1e;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1228px;
+      margin: 0 auto;
+    }
+
+    #chartdiv {
+      width: 100%;
+      height: 500px;
+      font-size: 50%;
+    }
+
+    #chartdiv svg text {
+      fill: #e1eeff !important;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <botmanager-form action="https://david-domain.com/bm-form/receive-form.php" method="POST"
+      contentType="multipart/form-data">
+      <botmanager-fieldset slot="form-child" legend="Generic Example" columns="2">
+        <!--
+          Generische HTML Beispiele.
           Einige Kind-Elemente der geslotteten Elemente
           können nur über globale Regeln gestyled werden.
           Dazu gibt es nun in der index.js ein Config-Object
           um Farben, oder andere Regel zu definieren.
         -->
-          <botmanager-generic slot="fieldset-child">
-            <!-- Typography Headings -->
-            <h1 slot="generic-child">H1 Heading</h1>
-            <h2 slot="generic-child">H2 Heading</h2>
-            <h3 slot="generic-child">H3 Heading</h3>
-            <h4 slot="generic-child">H4 Heading</h4>
-            <h5 slot="generic-child">H5 Heading</h5>
-            <h6 slot="generic-child">H6 Heading</h6>
-            <!-- amChart Example -->
-            <hr slot="generic-child" />
-            <div slot="generic-child">
-              <p>This is a simple chart example</p>
-            </div>
-            <div id="chartdiv" slot="generic-child"></div>
-            <hr slot="generic-child" />
-            <!-- Typography Paragraph -->
-            <p slot="generic-child">
-              Lorem ipsum dolor sit amet,
-              <!-- Typography Bold -->
-              <strong
-                >consetetur sadipscing elitr, sed diam nonumy eirmod
-                tempor</strong
-              >
-              invidunt ut labore et dolore magna aliquyam erat, sed diam
-              voluptua.
-              <!-- Typography Anchor -->
-              <a
-                class="link-style"
-                href="https://google.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                >At vero eos</a
-              >
-              et accusam et justo duo dolores et ea rebum. Stet clita kasd
-              <!-- Typography Italic -->
-              <em>gubergren, no sea takimata sanctus est Lorem ipsum dolor</em>
-              sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-              sed diam nonumy eirmod.
-            </p>
-          </botmanager-generic>
+        <botmanager-generic slot="fieldset-child">
+          <!-- Typography Headings -->
+          <h1 slot="generic-child">H1 Heading</h1>
+          <h2 slot="generic-child">H2 Heading</h2>
+          <h3 slot="generic-child">H3 Heading</h3>
+          <h4 slot="generic-child">H4 Heading</h4>
+          <h5 slot="generic-child">H5 Heading</h5>
+          <h6 slot="generic-child">H6 Heading</h6>
+          <!-- amChart Example -->
+          <hr slot="generic-child" />
+          <div slot="generic-child">
+            <p>This is a simple chart example</p>
+          </div>
+          <div id="chartdiv" slot="generic-child"></div>
+          <hr slot="generic-child" />
+          <!-- Typography Paragraph -->
+          <p slot="generic-child">
+            Lorem ipsum dolor sit amet,
+            <!-- Typography Bold -->
+            <strong>consetetur sadipscing elitr, sed diam nonumy eirmod
+              tempor</strong>
+            invidunt ut labore et dolore magna aliquyam erat, sed diam
+            voluptua.
+            <!-- Typography Anchor -->
+            <a class="link-style" href="https://google.com" target="_blank" rel="noopener noreferrer">At vero eos</a>
+            et accusam et justo duo dolores et ea rebum. Stet clita kasd
+            <!-- Typography Italic -->
+            <em>gubergren, no sea takimata sanctus est Lorem ipsum dolor</em>
+            sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+            sed diam nonumy eirmod.
+          </p>
+        </botmanager-generic>
 
-          <botmanager-generic slot="fieldset-child">
-            <!-- Tabs -->
-            <botmanager-tabs slot="generic-child" tabs="Assistant,Chart,Table">
-              <div class="tab-content show" data-tab="Assistant">
-                <dl>
-                  <dt>Balance</dt>
-                  <dd>372.05393164 USDT</dd>
-                </dl>
-                <dl>
-                  <dt>Current used amount</dt>
-                  <dd>387.77449121 USDT</dd>
-                </dl>
-                <dl>
-                  <dt>Max amount for bot usage</dt>
-                  <dd class="success-text">1320 USDT</dd>
-                </dl>
-                <dl>
-                  <dt>Max safe order price deviation</dt>
-                  <dd class="warn-text">29.25%</dd>
-                </dl>
-                <dl>
-                  <dt>% of available balance to be used by bot</dt>
-                  <dd class="error-text">> 100%</dd>
-                </dl>
-                <!-- Alerts -->
-                <div class="alert alert-success">
-                  Success! Your settings have been saved.
-                </div>
+        <botmanager-generic slot="fieldset-child">
+          <!-- Tabs -->
+          <botmanager-tabs slot="generic-child" tabs="Assistant,Chart,Table">
+            <div class="tab-content show" data-tab="Assistant">
+              <dl>
+                <dt>Balance</dt>
+                <dd>372.05393164 USDT</dd>
+              </dl>
+              <dl>
+                <dt>Current used amount</dt>
+                <dd>387.77449121 USDT</dd>
+              </dl>
+              <dl>
+                <dt>Max amount for bot usage</dt>
+                <dd class="success-text">1320 USDT</dd>
+              </dl>
+              <dl>
+                <dt>Max safe order price deviation</dt>
+                <dd class="warn-text">29.25%</dd>
+              </dl>
+              <dl>
+                <dt>% of available balance to be used by bot</dt>
+                <dd class="error-text">> 100%</dd>
+              </dl>
+              <!-- Alerts -->
+              <div class="alert alert-success">
+                Success! Your settings have been saved.
               </div>
-              <div class="tab-content" data-tab="Chart">Chart Content</div>
-              <div class="tab-content" data-tab="Table"></div>
-            </botmanager-tabs>
-          </botmanager-generic>
-
-          <botmanager-generic span="2" slot="fieldset-child">
-            <!-- Divider -->
-            <hr slot="generic-child" />
-            <!-- Space Between Elements -->
-            <div slot="generic-child" class="flex-space-between">
-              <img src="https://via.placeholder.com/200" alt="" />
-              <img src="https://via.placeholder.com/200" alt="" />
-              <img src="https://via.placeholder.com/600x200" alt="" />
             </div>
-            <!-- Alerts -->
-            <div slot="generic-child" class="alert alert-warning">
-              Warning! Bot will use amount greater than you have on exchange.
-            </div>
-            <div slot="generic-child" class="alert alert-error">
-              Error! Ups, sorry something went totally wrong.
-            </div>
-          </botmanager-generic>
-        </botmanager-fieldset>
-        <!--Form Fieldset-->
-        <botmanager-fieldset
-          slot="form-child"
-          legend="Stop Loss"
-          columns="2"
-          switchable
-        >
-          <botmanager-input
-            slot="fieldset-child"
-            name="stop-loss"
-            type="number"
-            value="0"
-            uom="%"
-            label="Stop Loss (%)"
-            tooltip="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt."
-          ></botmanager-input>
-          <botmanager-select
-            slot="fieldset-child"
-            name="stop-loss-action"
-            label="Stop Loss action"
-            value="dog"
-            tooltip="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt."
-            data='{"options": [ {"name": "Please choose a pet", "value": ""}, {"name": "Dog", "value": "dog"}, {"name": "Cat", "value": "cat"}, {"name": "Hamster", "value": "hamster"}, {"name": "Goldfish", "value": "goldfish"}]}'
-          ></botmanager-select>
-          <botmanager-switch
-            slot="fieldset-child"
-            name="stop-loss-timeout"
-            label="Stop Loss Timeout"
-            tooltip="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt."
-          ></botmanager-switch>
-          <botmanager-switch
-            slot="fieldset-child"
-            name="foo-bar"
-            label="Foo Bar"
-            tooltip="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt."
-            checked
-          ></botmanager-switch>
-        </botmanager-fieldset>
-        <!--Form Fieldset-->
-        <botmanager-fieldset
-          slot="form-child"
-          legend="Safety orders"
-          columns="2"
-          collapsible
-        >
-          <botmanager-input
-            slot="fieldset-child"
-            name="max-trades-count"
-            type="number"
-            value="5"
-            slider
-            label="Max safety trades count"
-            tooltip="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt."
-          >
-          </botmanager-input>
-          <botmanager-input
-            slot="fieldset-child"
-            type="hidden"
-            name="hidden-field"
-            value="foo"
-          ></botmanager-input>
-          <botmanager-input
-            slot="fieldset-child"
-            name="max-active-trades-count"
-            type="number"
-            value="0"
-            slider
-            min="-10"
-            max="10"
-            label="Max active safety trades count"
-            tooltip="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt."
-          >
-          </botmanager-input>
-          <botmanager-input
-            span="2"
-            slot="fieldset-child"
-            name="price-deviation-safety"
-            type="text"
-            value="22.70"
-            erase="[^0-9.]"
-            uom="$"
-            label="Price deviation to open safety orders (% from initial order)"
-            tooltip="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt."
-            sldValueClr="tomato"
-          >
-          </botmanager-input>
-          <botmanager-input
-            slot="fieldset-child"
-            name="safty-volume-scale"
-            type="number"
-            value="1.05"
-            slider
-            min="0"
-            max="10"
-            step="0.01"
-            label="Safety order volume scale"
-            tooltip="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt."
-          >
-          </botmanager-input>
-          <botmanager-input
-            slot="fieldset-child"
-            name="safty-step-scale"
-            type="number"
-            value="0.89"
-            slider
-            min="0"
-            max="10"
-            step="0.01"
-            label="Safety order step scale"
-            tooltip="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt."
-          >
-          </botmanager-input>
-        </botmanager-fieldset>
-        <!--Form Fieldset-->
-        <botmanager-fieldset
-          slot="form-child"
-          legend="Advanced Settings"
-          columns="2"
-          collapsible
-        >
-          <botmanager-input
-            span="2"
-            slot="fieldset-child"
-            name="minimum-price"
-            type="number"
-            value="0"
-            uom="BTC"
-            label="Don't start deal(s) if the daily volume is less than"
-            tooltip="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt."
-          >
-          </botmanager-input>
-          <botmanager-input
-            slot="fieldset-child"
-            name="minimum-price"
-            value=""
-            label="Minimum price to open deal"
-            tooltip="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt."
-          >
-          </botmanager-input>
-          <botmanager-input
-            slot="fieldset-child"
-            name="maximum-price"
-            value=""
-            label="Maximum price to open deal"
-            tooltip="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt."
-          >
-          </botmanager-input>
-          <botmanager-input
-            slot="fieldset-child"
-            name="start-delay"
-            type="number"
-            value="0"
-            uom="Sec"
-            label="Deal start delay"
-            tooltip="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt."
-          >
-          </botmanager-input>
-          <!-- Element with onValueChangeExample ID -->
-          <botmanager-input
-            id="onValueChangeExample"
-            slot="fieldset-child"
-            name="cool-down"
-            type="number"
-            value="120"
-            uom="Sec"
-            label="Cooldown between deals"
-            tooltip="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt."
-          >
-          </botmanager-input>
-        </botmanager-fieldset>
-      </botmanager-form>
-    </div>
-    <script type="module" src="./js/index.js"></script>
+            <div class="tab-content" data-tab="Chart">Chart Content</div>
+            <div class="tab-content" data-tab="Table"></div>
+          </botmanager-tabs>
+        </botmanager-generic>
 
-    <script>
-      customElements.whenDefined("botmanager-form").then(() => {
-        const botManagerForm = document.querySelector("botmanager-form");
-        function serverResponse(data) {
-          this.showResponse(data, 6000);
-        }
-        botManagerForm.response(serverResponse);
-      });
+        <botmanager-generic span="2" slot="fieldset-child">
+          <!-- Divider -->
+          <hr slot="generic-child" />
+          <!-- Space Between Elements -->
+          <div slot="generic-child" class="flex-space-between">
+            <img src="https://via.placeholder.com/200" alt="" />
+            <img src="https://via.placeholder.com/200" alt="" />
+            <img src="https://via.placeholder.com/600x200" alt="" />
+          </div>
+          <!-- Alerts -->
+          <div slot="generic-child" class="alert alert-warning">
+            Warning! Bot will use amount greater than you have on exchange.
+          </div>
+          <div slot="generic-child" class="alert alert-error">
+            Error! Ups, sorry something went totally wrong.
+          </div>
+        </botmanager-generic>
+      </botmanager-fieldset>
+      <!--Form Fieldset-->
+      <botmanager-fieldset slot="form-child" legend="Stop Loss" columns="2" switchable>
+        <botmanager-input slot="fieldset-child" name="stop-loss" type="number" value="0" uom="%" label="Stop Loss (%)"
+          tooltip="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt.">
+        </botmanager-input>
+        <botmanager-select slot="fieldset-child" name="stop-loss-action" label="Stop Loss action" value="dog"
+          tooltip="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt."
+          data='{"options": [ {"name": "Please choose a pet", "value": ""}, {"name": "Dog", "value": "dog"}, {"name": "Cat", "value": "cat"}, {"name": "Hamster", "value": "hamster"}, {"name": "Goldfish", "value": "goldfish"}]}'>
+        </botmanager-select>
+        <botmanager-switch slot="fieldset-child" name="stop-loss-timeout" label="Stop Loss Timeout"
+          tooltip="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt.">
+        </botmanager-switch>
+        <botmanager-switch slot="fieldset-child" name="foo-bar" label="Foo Bar"
+          tooltip="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt."
+          checked></botmanager-switch>
+      </botmanager-fieldset>
+      <!--Form Fieldset-->
+      <botmanager-fieldset slot="form-child" legend="Safety orders" columns="2" collapsible>
+        <botmanager-input slot="fieldset-child" name="max-trades-count" type="number" value="5" slider
+          label="Max safety trades count"
+          tooltip="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt.">
+        </botmanager-input>
+        <botmanager-input slot="fieldset-child" type="hidden" name="hidden-field" value="foo"></botmanager-input>
+        <botmanager-input slot="fieldset-child" name="max-active-trades-count" type="number" value="0" slider min="-10"
+          max="10" label="Max active safety trades count"
+          tooltip="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt.">
+        </botmanager-input>
+        <botmanager-input span="2" slot="fieldset-child" name="price-deviation-safety" type="text" value="22.70"
+          erase="[^0-9.]" uom="$" label="Price deviation to open safety orders (% from initial order)"
+          tooltip="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt."
+          sldValueClr="tomato">
+        </botmanager-input>
+        <botmanager-input slot="fieldset-child" name="safty-volume-scale" type="number" value="1.05" slider min="0"
+          max="10" step="0.01" label="Safety order volume scale"
+          tooltip="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt.">
+        </botmanager-input>
+        <botmanager-input slot="fieldset-child" name="safty-step-scale" type="number" value="0.89" slider min="0"
+          max="10" step="0.01" label="Safety order step scale"
+          tooltip="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt.">
+        </botmanager-input>
+      </botmanager-fieldset>
+      <!--Form Fieldset-->
+      <botmanager-fieldset slot="form-child" legend="Advanced Settings" columns="2" collapsible>
+        <botmanager-input span="2" slot="fieldset-child" name="minimum-price" type="number" value="0" uom="BTC"
+          label="Don't start deal(s) if the daily volume is less than"
+          tooltip="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt.">
+        </botmanager-input>
+        <botmanager-input slot="fieldset-child" name="minimum-price" value="" label="Minimum price to open deal"
+          tooltip="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt.">
+        </botmanager-input>
+        <botmanager-input slot="fieldset-child" name="maximum-price" value="" label="Maximum price to open deal"
+          tooltip="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt.">
+        </botmanager-input>
+        <botmanager-input slot="fieldset-child" name="start-delay" type="number" value="0" uom="Sec"
+          label="Deal start delay"
+          tooltip="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt.">
+        </botmanager-input>
+        <!-- Element with onValueChangeExample ID -->
+        <botmanager-input id="onValueChangeExample" slot="fieldset-child" name="cool-down" type="number" value="120"
+          uom="Sec" label="Cooldown between deals"
+          tooltip="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt.">
+        </botmanager-input>
+      </botmanager-fieldset>
+    </botmanager-form>
+  </div>
+  <script type="module" src="./js/index.js"></script>
 
-      // On value change handler example
-      function valueChangeHandler(evt) {
-        const value = parseInt(evt.target.value, 10);
-        const prevElVal = parseInt(evt.target.previousElementSibling.value, 10);
-        const newVal = value + prevElVal;
-        console.log("new value", newVal);
-        if (newVal) {
-          evt.target.previousElementSibling.setAttribute("value", newVal);
-        }
+  <script>
+    customElements.whenDefined( "botmanager-form" ).then( () => {
+      const botManagerForm = document.querySelector( "botmanager-form" );
+      function serverResponse( data ) {
+        this.showResponse( data, 6000 );
       }
-      const inp = document.getElementById("onValueChangeExample");
-      inp.addEventListener("valueChange", valueChangeHandler);
-    </script>
+      botManagerForm.response( serverResponse );
+    } );
 
-    <!-- amChart Simple Chart Example -->
-    <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
-    <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
-    <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+    // On value change handler example
+    function valueChangeHandler( evt ) {
+      const value = parseInt( evt.target.value, 10 );
+      const prevElVal = parseInt( evt.target.previousElementSibling.value, 10 );
+      const newVal = value + prevElVal;
+      console.log( "new value", newVal );
+      if ( newVal ) {
+        evt.target.previousElementSibling.setAttribute( "value", newVal );
+      }
+    }
+    const inp = document.getElementById( "onValueChangeExample" );
+    inp.addEventListener( "valueChange", valueChangeHandler );
+  </script>
 
-    <!-- Chart code -->
-    <script>
-      am4core.ready(function () {
-        // Themes begin
-        am4core.useTheme(am4themes_animated);
-        // Themes end
-        // Create chart instance
-        var chart = am4core.create("chartdiv", am4charts.XYChart);
-        // Add data
-        chart.data = [
-          {
-            country: "USA",
-            visits: 2025,
-          },
-          {
-            country: "China",
-            visits: 1882,
-          },
-          {
-            country: "Japan",
-            visits: 1809,
-          },
-          {
-            country: "Germany",
-            visits: 1322,
-          },
-          {
-            country: "UK",
-            visits: 1122,
-          },
-          {
-            country: "France",
-            visits: 1114,
-          },
-        ];
-        // Create axes
-        var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-        categoryAxis.dataFields.category = "country";
-        categoryAxis.renderer.grid.template.location = 0;
-        categoryAxis.renderer.minGridDistance = 30;
-        categoryAxis.renderer.labels.template.adapter.add(
-          "dy",
-          function (dy, target) {
-            return dy;
-          }
-        );
-        var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-        // Create series
-        var series = chart.series.push(new am4charts.ColumnSeries());
-        series.dataFields.valueY = "visits";
-        series.dataFields.categoryX = "country";
-        series.name = "Visits";
-        series.columns.template.tooltipText = "{categoryX}: [bold]{valueY}[/]";
-        series.columns.template.fillOpacity = 0.8;
-        var columnTemplate = series.columns.template;
-        columnTemplate.strokeWidth = 2;
-        columnTemplate.strokeOpacity = 1;
-      }); // end am4core.ready()
-    </script>
-  </body>
+  <!-- amChart Simple Chart Example -->
+  <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+  <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+  <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+
+  <!-- Chart code -->
+  <script>
+    am4core.ready( function () {
+      // Themes begin
+      am4core.useTheme( am4themes_animated );
+      // Themes end
+      // Create chart instance
+      var chart = am4core.create( "chartdiv", am4charts.XYChart );
+      // Add data
+      chart.data = [
+        {
+          country: "USA",
+          visits: 2025,
+        },
+        {
+          country: "China",
+          visits: 1882,
+        },
+        {
+          country: "Japan",
+          visits: 1809,
+        },
+        {
+          country: "Germany",
+          visits: 1322,
+        },
+        {
+          country: "UK",
+          visits: 1122,
+        },
+        {
+          country: "France",
+          visits: 1114,
+        },
+      ];
+      // Create axes
+      var categoryAxis = chart.xAxes.push( new am4charts.CategoryAxis() );
+      categoryAxis.dataFields.category = "country";
+      categoryAxis.renderer.grid.template.location = 0;
+      categoryAxis.renderer.minGridDistance = 30;
+      categoryAxis.renderer.labels.template.adapter.add(
+        "dy",
+        function ( dy, target ) {
+          return dy;
+        }
+      );
+      var valueAxis = chart.yAxes.push( new am4charts.ValueAxis() );
+      // Create series
+      var series = chart.series.push( new am4charts.ColumnSeries() );
+      series.dataFields.valueY = "visits";
+      series.dataFields.categoryX = "country";
+      series.name = "Visits";
+      series.columns.template.tooltipText = "{categoryX}: [bold]{valueY}[/]";
+      series.columns.template.fillOpacity = 0.8;
+      var columnTemplate = series.columns.template;
+      columnTemplate.strokeWidth = 2;
+      columnTemplate.strokeOpacity = 1;
+    } ); // end am4core.ready()
+  </script>
+</body>
+
 </html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Document</title>
+  <style>
+    body {
+      padding: 0;
+      margin: 0;
+      background-color: #161a1e;
+      color: white;
+    }
+
+    .app-container {
+      width: 100%;
+      max-width: 1228px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app-container"></div>
+  <script type="module" src="./js/index.js"></script>
+
+  <script type="module">
+
+    // Ein paar Daten zum rumprobieren.
+    import { StopLossData } from "./js/data.js"
+
+    // Import der optimierten htm/preact Libraries (https://github.com/developit/htm#installation)
+    // Infos zu preact findet man hier: https://preactjs.com/
+    import { html, Component, render, useEffect, useState } from 'https://unpkg.com/htm/preact/standalone.module.js';
+
+    // Fieldset Komponente
+    const Fieldset = ( props, children ) => html`<botmanager-fieldset ...${ props } />`
+
+    // Input Komponente
+    const BotElem = ( props ) => {
+      const { type } = props
+      return html`<${ 'botmanager-' + type } ...${ props } />`;
+    }
+
+    // Ein paar Beispielfunktionen zum rendern unterschiedlicher Elemente.
+    function renderThe6HTMLHeadings() {
+      return [ ...Array( 6 ).keys() ].map( key => html`<${ 'h' + ( ++key ) } slot="generic-child">Heading ${ key }<//>` )
+    }
+
+    function renderSomeTabs() {
+      return html`
+        <botmanager-tabs slot="generic-child" tabs="One,Two,Three">
+          <div class="tab-content show" data-tab="One">
+            <p style="font-size:normal">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam.</p>
+          </div>
+          <div class="tab-content" data-tab="Two">
+            <img src="https://studiofunk.de/images/contact/dependancen/hh_02.jpg" alt="Studio Deli" style="width:300px;height:auto" />
+          </div>
+          <div class="tab-content" data-tab="Three">
+            <h3>Foo Bar Baz<//>
+          </div>
+        <//>
+      `;
+    }
+
+    function renderFromArray( array ) {
+      return array.map( props => html`<${ BotElem } ...${ props } />` )
+    }
+
+
+    // Das komplette Formular, welches in ein Element (app-container) gerendert wird.
+    const Form = () => {
+      const [ sum, setSum ] = useState( 0 )
+
+      return html`
+          <botmanager-form
+            action="https://david-domain.com/bm-form/receive-form.php"
+            method="POST"
+            contentType="multipart/form-data">
+
+            <!-- Fieldset mit HTML Elementen -->
+            <${ Fieldset } slot="form-child" legend="Generic Example" columns="2">
+              <${ BotElem } type="generic" slot="fieldset-child">
+                ${ renderThe6HTMLHeadings() }
+              <//>
+              <${ BotElem } type="generic" slot="fieldset-child">
+                ${ renderSomeTabs() }
+              <//>
+            <//>
+
+            <!-- Switchable Fieldset -->
+            <${ Fieldset } slot="form-child" legend="Stop Loss" columns="2" switchable>
+              ${ renderFromArray( StopLossData ) }
+            <//>
+
+          </botmanager-form>
+        `;
+    }
+
+
+
+    render( html`<${ Form } />`, document.getElementById( 'app-container' ) );
+  </script>
+
+</body>
+
+</html>
