@@ -29,7 +29,7 @@
   <script type="module">
 
     // Ein paar Daten zum rumprobieren.
-    import { StopLossData } from "./js/data.js"
+    import { StopLossData, Bla } from "./js/data.js"
 
     // Import der optimierten htm/preact Libraries (https://github.com/developit/htm#installation)
     // Infos zu preact findet man hier: https://preactjs.com/
@@ -41,6 +41,7 @@
     // Input Komponente
     const BotElem = ( props ) => {
       const { type } = props
+      //console.log( props )
       return html`<${ 'botmanager-' + type } ...${ props } />`;
     }
 
@@ -65,14 +66,49 @@
       `;
     }
 
-    function renderFromArray( array ) {
-      return array.map( props => html`<${ BotElem } ...${ props } />` )
+    function renderFromArray( array, state ) {
+      console.log( state )
+      return array.map( props => state ? html`<${ BotElem } ...${ { ...props, value: state } } />` : html`<${ BotElem } ...${ props } />` )
     }
 
+    function Slider( props ) {
+      const { name, label, onInputHandler, type, value, min, max, step, disabled } = props
+      return html`
+        <div class="input-control" slot="fieldset-child">
+          <div>
+            <label for="${ name }">${ label }</label>
+          </div>
+          <input onInput=${ onInputHandler } name="${ name }" type="${ type }" value="${ value }" min="${ min }" max="${ max }" step="${ step }" class="bot-input" ${ disabled } />
+          <div>
+            <input onInput=${ onInputHandler } type="range" name="${ name + "_slider" }" min="${ min }" max="${ max }" step="${ step }" value="${ value }" class="slider" ${ disabled } />
+          </div>
+        </div>
+      `
+    }
 
     // Das komplette Formular, welches in ein Element (app-container) gerendert wird.
     const Form = () => {
-      const [ sum, setSum ] = useState( 0 )
+
+      const [ sum, setSum ] = useState( { value: 8 } )
+      const [ foo, setFoo ] = useState( { value: 12 } )
+
+      function handler( e ) {
+        const { value } = e.target;
+        setSum( { value } )
+      }
+
+      function handlerFoo( e ) {
+        const { value } = e.target;
+        setFoo( { value } )
+      }
+
+      function calcSumFoo() {
+        return parseInt( sum.value ) + parseInt( foo.value )
+      }
+
+      function sumFooHandler( e ) {
+        console.log( e.target.value )
+      }
 
       return html`
           <botmanager-form
@@ -93,6 +129,34 @@
             <!-- Switchable Fieldset -->
             <${ Fieldset } slot="form-child" legend="Stop Loss" columns="2" switchable>
               ${ renderFromArray( StopLossData ) }
+            <//>
+
+            <!-- Switchable Fieldset -->
+            <${ Fieldset } slot="form-child" legend="Safety orders" columns="2" collapsible>
+
+              <${ Slider }
+              slot="fieldset-child"
+              name="max-trades-count"
+              type="number"
+              value="${ sum.value }"
+              label="Max safety trades count"
+              onInputHandler=${ handler }
+              >
+              <//>
+
+              <${ Slider }
+              slot="fieldset-child"
+              name="max-foo"
+              type="number"
+              value="${ foo.value }"
+              label="Max safety trades count"
+              onInputHandler=${ handlerFoo }
+              >
+              <//>
+
+            ${ renderFromArray( Bla, calcSumFoo() ) }
+
+
             <//>
 
           </botmanager-form>

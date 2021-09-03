@@ -38,4 +38,17 @@ const StopLossData = [
   },
 ];
 
-export { StopLossData };
+const Bla = [
+  {
+    slot: 'fieldset-child',
+    type: 'input',
+    name: 'stop-xxx',
+    value: '0',
+    uom: '%',
+    label: 'Stop Loss (%)',
+    tooltip:
+      'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt.',
+  },
+];
+
+export { StopLossData, Bla };
