@@ -1,67 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    />
-    <title>Document</title>
-    <style>
-      body {
-        padding: 0;
-        margin: 0;
-        background-color: #161a1e;
-        color: white;
-      }
 
-      .app-container {
-        width: 100%;
-        max-width: 1228px;
-        margin: 0 auto;
-      }
-    </style>
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Document</title>
+  <style>
+    body {
+      padding: 0;
+      margin: 0;
+      background-color: #161a1e;
+      color: white;
+    }
 
-  <body>
-    <div id="app-container"></div>
-    <script type="module" src="./js/index.js"></script>
+    .app-container {
+      width: 100%;
+      max-width: 1228px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
 
-    <script type="module">
-      // Ein paar Daten zum rumprobieren.
-      import { StopLossData, Bla } from "./js/data.js";
+<body>
+  <div id="app-container"></div>
+  <script type="module" src="./js/index.js"></script>
 
-      // Import der optimierten htm/preact Libraries (https://github.com/developit/htm#installation)
-      // Infos zu preact findet man hier: https://preactjs.com/
-      import {
-        html,
-        Component,
-        render,
-        useEffect,
-        useState,
-      } from "https://unpkg.com/htm/preact/standalone.module.js";
+  <script type="module">
+    // Ein paar Daten zum rumprobieren.
+    import { StopLossData, Bla } from "./js/data.js";
 
-      // Fieldset Komponente
-      const Fieldset = (props, children) =>
-        html`<botmanager-fieldset ...${props} />`;
+    // Import der optimierten htm/preact Libraries (https://github.com/developit/htm#installation)
+    // Infos zu preact findet man hier: https://preactjs.com/
+    import {
+      html,
+      Component,
+      render,
+      useEffect,
+      useState,
+    } from "https://unpkg.com/htm/preact/standalone.module.js";
 
-      // Input Komponente
-      const BotElem = (props) => {
-        const { type } = props;
-        //console.log( props )
-        return html`<${"botmanager-" + type} ...${props} />`;
-      };
+    // Fieldset Komponente
+    const Fieldset = ( props, children ) =>
+      html`<botmanager-fieldset ...${ props } />`;
 
-      // Ein paar Beispielfunktionen zum rendern unterschiedlicher Elemente.
-      function renderThe6HTMLHeadings() {
-        return [...Array(6).keys()].map(
-          (key) => html`<${"h" + ++key} slot="generic-child">Heading ${key}<//>`
-        );
-      }
+    // Input Komponente
+    const BotElem = ( props ) => {
+      const { type } = props;
+      //console.log( props )
+      return html`<${ "botmanager-" + type } ...${ props } />`;
+    };
 
-      function renderSomeTabs() {
-        return html`
+    // Ein paar Beispielfunktionen zum rendern unterschiedlicher Elemente.
+    function renderThe6HTMLHeadings() {
+      return [ ...Array( 6 ).keys() ].map(
+        ( key ) => html`<${ "h" + ++key } slot="generic-child">Heading ${ key }<//>`
+      );
+    }
+
+    function renderSomeTabs() {
+      return html`
           <botmanager-tabs slot="generic-child" tabs="One,Two,Three">
             <div class="tab-content show" data-tab="One">
               <p style="font-size:normal">
@@ -82,154 +80,155 @@
             </div>
           <//>
         `;
-      }
+    }
 
-      function renderFromArray(array, state, onInputHandler = () => {}) {
-        //console.log(state);
-        return array.map((props) =>
-          state
-            ? html`<${BotElem}
-                ...${{ ...props, value: state }}
-                onInput=${onInputHandler}
+    function renderFromArray( array, state, onInputHandler = () => { } ) {
+      //console.log(state);
+      return array.map( ( props ) =>
+        state
+          ? html`<${ BotElem }
+                ...${ { ...props, value: state } }
+                onInput=${ onInputHandler }
               />`
-            : html`<${BotElem} ...${props} onInput=${onInputHandler} />`
-        );
-      }
+          : html`<${ BotElem } ...${ props } onInput=${ onInputHandler } />`
+      );
+    }
 
-      // Slider Komponente
-      const Slider = (props) => {
-        const {
-          name,
-          label,
-          onInputHandler,
-          type,
-          value,
-          min,
-          max,
-          step,
-          disabled,
-        } = props;
-        return html`
+    // Slider Komponente
+    const Slider = ( props ) => {
+      const {
+        name,
+        label,
+        onInputHandler,
+        type,
+        value,
+        min,
+        max,
+        step,
+        disabled,
+      } = props;
+      return html`
           <div class="input-control" slot="fieldset-child">
             <div>
-              <label for="${name}">${label}</label>
+              <label for="${ name }">${ label }</label>
             </div>
             <input
-              onInput=${onInputHandler}
-              name="${name}"
-              type="${type}"
-              value="${value}"
-              min="${min}"
-              max="${max}"
-              step="${step}"
+              onInput=${ onInputHandler }
+              name="${ name }"
+              type="${ type }"
+              value="${ value }"
+              min="${ min }"
+              max="${ max }"
+              step="${ step }"
               class="bot-input"
-              ${disabled}
+              ${ disabled }
             />
             <div>
               <input
-                onInput=${onInputHandler}
+                onInput=${ onInputHandler }
                 type="range"
-                name="${name + "_slider"}"
-                min="${min}"
-                max="${max}"
-                step="${step}"
-                value="${value}"
+                name="${ name + "_slider" }"
+                min="${ min }"
+                max="${ max }"
+                step="${ step }"
+                value="${ value }"
                 class="slider"
-                ${disabled}
+                ${ disabled }
               />
             </div>
           </div>
         `;
-      };
+    };
 
-      // Das komplette Formular, welches in ein Element (app-container) gerendert wird.
-      const Form = () => {
-        const [isEditing, setIsEditing] = useState(false);
-        const [foo, setFoo] = useState({ value: 12 });
-        const [bar, setBar] = useState({ value: 8 });
-        const [sum, setSum] = useState({ value: 20 });
+    // Das komplette Formular, welches in ein Element (app-container) gerendert wird.
+    const Form = () => {
+      const [ isEditing, setIsEditing ] = useState( false );
+      const [ foo, setFoo ] = useState( { value: 12 } );
+      const [ bar, setBar ] = useState( { value: 8 } );
+      const [ sum, setSum ] = useState( { value: 20 } );
 
-        function handlerBar(e) {
-          const { value } = e.target;
-          setBar({ value });
-          setSum({ value: value + foo });
-        }
+      function calcSum( ...values ) {
+        return values.reduce( ( acc, next ) => parseInt( acc ) + parseInt( next ), 0 );
+      }
 
-        function handlerFoo(e) {
-          const { value } = e.target;
-          setFoo({ value });
-          setSum({ value: value + bar });
-        }
+      function handlerBar( e ) {
+        const { value } = e.target;
+        setBar( { value } );
+        setSum( { value: calcSum( value, foo.value ) } );
+      }
 
-        function calcSumFoo() {
-          return parseInt(sum.value) + parseInt(foo.value);
-        }
+      function handlerFoo( e ) {
+        const { value } = e.target;
+        setFoo( { value } );
+        setSum( { value: calcSum( value, bar.value ) } );
+      }
 
-        function onFocusHandler() {
-          setIsEditing(true);
-        }
+      function onFocusHandler() {
+        setIsEditing( true );
+        console.log( sum.value )
+      }
 
-        function onBlurHandler() {
-          setIsEditing(false);
-        }
+      function onBlurHandler() {
+        setIsEditing( false );
+      }
 
-        function handlerSumFoo(e) {
-          console.log(e.target.value);
-          setFoo({ value: ~~(parseInt(e.target.value) / 2) });
-          setBar({ value: ~~(parseInt(e.target.value) / 2) });
-          setSum({ value: parseInt(e.target.value) });
-        }
+      function handlerSumFoo( e ) {
+        console.log( e.target.value );
+        setFoo( { value: ~~( parseInt( e.target.value ) / 2 ) } );
+        setBar( { value: ~~( parseInt( e.target.value ) / 2 ) } );
+        setSum( { value: parseInt( e.target.value ) } );
+      }
 
-        return html`
+      return html`
           <botmanager-form
             action="https://david-domain.com/bm-form/receive-form.php"
             method="POST"
             contentType="multipart/form-data"
           >
             <!-- Fieldset mit HTML Elementen -->
-            <${Fieldset} slot="form-child" legend="Generic Example" columns="2">
-              <${BotElem} type="generic" slot="fieldset-child">
-                ${renderThe6HTMLHeadings()}
+            <${ Fieldset } slot="form-child" legend="Generic Example" columns="2">
+              <${ BotElem } type="generic" slot="fieldset-child">
+                ${ renderThe6HTMLHeadings() }
               <//>
-              <${BotElem} type="generic" slot="fieldset-child">
-                ${renderSomeTabs()}
+              <${ BotElem } type="generic" slot="fieldset-child">
+                ${ renderSomeTabs() }
               <//>
             <//>
 
             <!-- Switchable Fieldset -->
-            <${Fieldset}
+            <${ Fieldset }
               slot="form-child"
               legend="Stop Loss"
               columns="2"
               switchable
             >
-              ${renderFromArray(StopLossData)}
+              ${ renderFromArray( StopLossData ) }
             <//>
 
             <!-- Switchable Fieldset -->
-            <${Fieldset}
+            <${ Fieldset }
               slot="form-child"
               legend="Safety orders"
               columns="2"
               collapsible
             >
-              <${Slider}
+              <${ Slider }
                 slot="fieldset-child"
                 name="max-foo"
                 type="number"
-                value="${isEditing ? ~~(sum.value / 2) : foo.value}"
+                value="${ isEditing ? ~~( sum.value / 2 ) : foo.value }"
                 label="Max safety trades count"
-                onInputHandler=${handlerFoo}
+                onInputHandler=${ handlerFoo }
               >
               <//>
 
-              <${Slider}
+              <${ Slider }
                 slot="fieldset-child"
                 name="max-trades-count"
                 type="number"
-                value="${isEditing ? ~~(sum.value / 2) : bar.value}"
+                value="${ isEditing ? ~~( sum.value / 2 ) : bar.value }"
                 label="Max safety trades count"
-                onInputHandler=${handlerBar}
+                onInputHandler=${ handlerBar }
               >
               <//>
 
@@ -237,19 +236,20 @@
                 slot="fieldset-child"
                 name="test"
                 type="text"
-                onFocus=${onFocusHandler}
-                onBlur=${onBlurHandler}
-                onInput=${handlerSumFoo}
-                value=${isEditing
-                  ? sum.value
-                  : parseInt(foo.value) + parseInt(bar.value)}
+                onFocus=${ onFocusHandler }
+                onBlur=${ onBlurHandler }
+                onInput=${ handlerSumFoo }
+                value=${ isEditing
+          ? sum.value
+          : parseInt( foo.value ) + parseInt( bar.value ) }
               />
             <//>
           </botmanager-form>
         `;
-      };
-      //renderFromArray(Bla, calcSumFoo(), handlerSumFoo)
-      render(html`<${Form} />`, document.getElementById("app-container"));
-    </script>
-  </body>
+    };
+    //renderFromArray(Bla, calcSumFoo(), handlerSumFoo)
+    render( html`<${ Form } />`, document.getElementById( "app-container" ) );
+  </script>
+</body>
+
 </html>
