@@ -1,0 +1,21 @@
+{
+  "name": "bot-manager-frontend",
+  "version": "1.0.0",
+  "description": "Custom HTML Elemente um Formulare für das botmanger Frontend zu erstellen.<br>",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daviddomain/botmanager-custom-fields.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/daviddomain/botmanager-custom-fields/issues"
+  },
+  "homepage": "https://github.com/daviddomain/botmanager-custom-fields#readme"
+}

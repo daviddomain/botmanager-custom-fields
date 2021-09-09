@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preact Test</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+
+  </style>
+</head>
+
+<body>
+  <form>
+
+    <fieldset id="app-container"></fieldset>
+
+  </form>
+  <script type="module">
+    import { html, render } from "https://unpkg.com/htm/preact/standalone.module.js";
+    import BmInput from "./js/preact-components/input/BmInput.js";
+
+
+    render( html`<${ BmInput } type="text" placeholder="foo" />`, document.getElementById( "app-container" ) );
+
+  </script>
+</body>
+
+</html>

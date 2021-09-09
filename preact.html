@@ -28,6 +28,7 @@
 
   <script type="module">
     // Ein paar Daten zum rumprobieren.
+
     import { StopLossData, Bla } from "./js/data.js";
 
     // Import der optimierten htm/preact Libraries (https://github.com/developit/htm#installation)
@@ -39,6 +40,7 @@
       useEffect,
       useState,
     } from "https://unpkg.com/htm/preact/standalone.module.js";
+    import BmInput from "./js/preact-components/input/BmInput.js"
 
     // Fieldset Komponente
     const Fieldset = ( props, children ) =>
@@ -245,6 +247,7 @@
               />
             <//>
           </botmanager-form>
+          <${ BmInput } type="text" placeholder="Foo" />
         `;
     };
     //renderFromArray(Bla, calcSumFoo(), handlerSumFoo)
